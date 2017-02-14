@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJarLocking="true" path="/consultorio-lgm-web">
   <WatchedResource>WEB-INF/web.xml</WatchedResource>
-  <Resource auth="Container" driverClassName="org.postgresql.Driver" maxActive="30" maxIdle="10" maxWait="10000" name="jdbc/consultorio_lgm" password="rootmaster" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/consultorio_lgm" username="postgres"/>
+  <Resource auth="Container" 
+            driverClassName="org.postgresql.Driver" 
+            maxActive="30" 
+            maxIdle="10" 
+            maxWait="10000" 
+            name="jdbc/consultorio_lgm" 
+            password="rootmaster" 
+            type="javax.sql.DataSource" 
+            url="jdbc:postgresql://localhost:5432/consultorio_lgm" 
+            username="postgres"/>
 </Context>

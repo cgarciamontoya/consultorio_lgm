@@ -17,6 +17,9 @@
 	        <security:intercept-url method="POST" pattern="/web-pages/seguridad/login.jsf" access="isAnonymous()" />
 	        <security:intercept-url method="POST" pattern="/javax.faces.resource/**" access="isAnonymous()" />
 	        <security:intercept-url method="POST" pattern="/j_spring_security_check/**" access="isAnonymous()" />
+                
+                <security:intercept-url method="GET"  pattern="/web-pages/general/seguridad/usuarios.jsf" access="hasAnyRole('ROLE_ADMIN')" />
+                <security:intercept-url method="POST"  pattern="/web-pages/general/seguridad/usuarios.jsf" access="hasAnyRole('ROLE_ADMIN')" />
 	        
 	        <security:intercept-url method="POST" pattern="/**" access="isFullyAuthenticated()" />
 	        <security:intercept-url method="GET"  pattern="/web-pages/general/**" access="isFullyAuthenticated()" />

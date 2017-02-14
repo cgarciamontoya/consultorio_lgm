@@ -34,7 +34,7 @@ public abstract class TestDAOBaseDatosBase extends AbstractTransactionalTestNGSp
 		fixedEnvironmentPBEConfig.setPassword("=Ñ3!w%Az[*7H2k/0");		
 		
 		//Ejecuta el script que elimina todas las tablas de la base de tatos
-		executeSqlScript( "classpath:datos/script-inicial-pruebas.sql" , false );
+		//executeSqlScript( "classpath:datos/script-inicial-pruebas.sql" , false );
 	}
 	
 	// ----------------------------------- Getters y Setters --------------------------------

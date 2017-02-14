@@ -70,6 +70,9 @@ public class Paciente implements Serializable {
     @JoinColumn(name = "id_antecedentes", referencedColumnName = "id")
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private AntecedentesGenerales idAntecedentes;
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    private Usuario usuario;
 
     public Paciente() {
     }
@@ -199,6 +202,14 @@ public class Paciente implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

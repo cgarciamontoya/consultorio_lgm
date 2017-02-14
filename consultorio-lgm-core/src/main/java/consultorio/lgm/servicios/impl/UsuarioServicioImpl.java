@@ -13,18 +13,6 @@ import java.util.List;
 
 
 
-/** Requerimientos cubiertos:RF-Usuarios-01.
- * RF-Usuarios-02
- * RF-Usuarios-03
- * RF-Usuarios-04
- * RF-Usuarios-05
- * RF-Usuarios-07
- * RF-Usuarios-08
- * Descripción: Éste componente representa la lógica del negocio en cuanto a la 
- * sección de usuarios dentro del Sistema de Certificado Firma Digital
- * @author mmarquez
- * Fecha creación:  25/03/2014
-*/
 public class UsuarioServicioImpl extends ServicioBase implements Serializable, UsuarioServicio {
 
     

@@ -66,6 +66,8 @@ public class Usuario implements Serializable {
     private String iniciales;
     @Column(name = "correo")
     private String correo;
+    @Column(name = "cedula")
+    private String cedula;
 
     public Usuario() {
     }
@@ -148,6 +150,14 @@ public class Usuario implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
     }
 
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

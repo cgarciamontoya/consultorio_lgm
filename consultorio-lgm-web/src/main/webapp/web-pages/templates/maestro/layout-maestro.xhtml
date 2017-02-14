@@ -6,7 +6,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:jstl="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:sec="http://www.springframework.org/security/tags">
     <h:head>
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/skin.css" />
         <script type="text/javascript" src="#{request.contextPath}/resources/js/funciones.js"/>
@@ -15,9 +16,9 @@
     </h:head>
 
     <h:body>
-			
-		<ui:insert name="encabezado">
-        	<ui:include src="/web-pages/templates/maestro/maneja-error-ajax.xhtml" />
+
+        <ui:insert name="encabezado">
+            <ui:include src="/web-pages/templates/maestro/maneja-error-ajax.xhtml" />
         </ui:insert>
         <div id="divPrincipal" class="divPrincipal">
             <div id="encabezado" class="encabezado">
@@ -28,51 +29,56 @@
             <h:form id="formaPrincipalBarraMenu">
 
                 <p:menubar id="menuBar" style="width:100%;" autoDisplay="false">
-                        <p:submenu id="pacientes"
-                                   label="#{msg['menu.mnu.pacientes']}"
-                                   icon="ui-icon-folder-open">
-                            <p:menuitem value="#{msg['menu.pacientes.busquedaPacientes']}"
-                                        url="/web-pages/general/pacientes/pacientes.jsf"/>
-                            <p:menuitem value="#{msg['menu.pacientes.historiaClinica']}"
-                                        actionListener="#{menuMB.limpiarPacienteSesion}"
-                                        oncomplete="location.href='#{request.contextPath}/web-pages/general/pacientes/historiaClinica.jsf'"/>
-                            <p:menuitem value="#{msg['menu.pacientes.consultasPrevias']}"
-                                        actionListener="#{menuMB.limpiarPacienteSesion}"
-                                        oncomplete="location.href='#{request.contextPath}/web-pages/general/consultas/consultasPrevias.jsf'"/>
-                        </p:submenu>
-                        <p:submenu id="catalogos"
-                                   label="#{msg['menu.mnu.catalogos']}"
-                                   icon="ui-icon-folder-open">
-                            <p:menuitem value="#{msg['menu.catalogos.enfermedadesCronicas']}"
-                                        url="/web-pages/general/catalogos/enfermedadesCronicas.jsf"/>
-                            <p:menuitem value="#{msg['menu.catalogos.mpf']}"
-                                        title="#{msg['menu.catalogos.mpf.titulo']}"
-                                        url="/web-pages/general/catalogos/mpf.jsf"/>
-                            <p:menuitem value="#{msg['menu.catalogos.medicamentos']}"
-                                        url="/web-pages/general/catalogos/medicamentos.jsf"/>
-                        </p:submenu>
-				<p:menuitem value="#{msg['menu.mnu.cambiaPassword']}"
-					icon="ui-icon-document" onclick="PF('cambioPasswordDlg').show();" />
+                    <p:submenu id="pacientes"
+                               label="#{msg['menu.mnu.pacientes']}"
+                               icon="ui-icon-folder-open">
+                        <p:menuitem value="#{msg['menu.pacientes.busquedaPacientes']}"
+                                    url="/web-pages/general/pacientes/pacientes.jsf"/>
+                        <p:menuitem value="#{msg['menu.pacientes.historiaClinica']}"
+                                    actionListener="#{menuMB.limpiarPacienteSesion}"
+                                    oncomplete="location.href='#{request.contextPath}/web-pages/general/pacientes/historiaClinica.jsf'"/>
+                        <p:menuitem value="#{msg['menu.pacientes.consultasPrevias']}"
+                                    actionListener="#{menuMB.limpiarPacienteSesion}"
+                                    oncomplete="location.href='#{request.contextPath}/web-pages/general/consultas/consultasPrevias.jsf'"/>
+                    </p:submenu>
+                    <p:submenu id="catalogos"
+                               label="#{msg['menu.mnu.catalogos']}"
+                               icon="ui-icon-folder-open">
+                        <p:menuitem value="#{msg['menu.catalogos.enfermedadesCronicas']}"
+                                    url="/web-pages/general/catalogos/enfermedadesCronicas.jsf"/>
+                        <p:menuitem value="#{msg['menu.catalogos.mpf']}"
+                                    title="#{msg['menu.catalogos.mpf.titulo']}"
+                                    url="/web-pages/general/catalogos/mpf.jsf"/>
+                        <p:menuitem value="#{msg['menu.catalogos.medicamentos']}"
+                                    url="/web-pages/general/catalogos/medicamentos.jsf"/>
+                    </p:submenu>
+                    <sec:authorize ifAnyGranted="ROLE_ADMIN">
+                        <p:menuitem value="#{msg['menu.dashboard.titulo.usuarios']}"
+                                    icon="ui-icon-contact"
+                                    url="/web-pages/general/seguridad/usuarios.jsf"/>
+                    </sec:authorize>
+                    <p:menuitem value="#{msg['menu.mnu.cambiaPassword']}"
+                                icon="ui-icon-document" onclick="PF('cambioPasswordDlg').show();" />
 
-				<c:facet name="options">
-                    	<table>
-                    		<tr>
-                    			<td>
-                    				<p:commandButton disabled="true" icon="ui-icon-person" style="border-width:0;background:none;" />
-                        			<p:outputLabel value="#{dashBoardMB.nombreUsuario}" />
-    							</td>
-    							<td>
-    								<h:outputLink value="#{request.contextPath}/web-pages/general/inicio.jsf" >
-		                                <p:graphicImage value="/img/icono-home.jpg" height="20" width="20" title="#{msg['encabezado.inicio']}" />
-		                        	</h:outputLink>
-		                       	</td>
-		                		<td>
-		                	  		<p:commandLink id="lnk_cerrar_sesion" actionListener="#{loginMB.logout}" style="margin-right:20px;" ajax="false">  
-		        						<p:graphicImage value="/img/icono-salir.jpg" height="20" width="20" title="#{msg['encabezado.logout']}" />
-		    						</p:commandLink>
-		                		</td>
-    						</tr>
-    					</table>
+                    <c:facet name="options">
+                        <table>
+                            <tr>
+                                <td>
+                                    <p:commandButton disabled="true" icon="ui-icon-person" style="border-width:0;background:none;" />
+                                    <p:outputLabel value="#{dashBoardMB.nombreUsuario}" />
+                                </td>
+                                <td>
+                                    <h:outputLink value="#{request.contextPath}/web-pages/general/inicio.jsf" >
+                                        <p:graphicImage value="/img/icono-home.jpg" height="20" width="20" title="#{msg['encabezado.inicio']}" />
+                                    </h:outputLink>
+                                </td>
+                                <td>
+                                    <p:commandLink id="lnk_cerrar_sesion" actionListener="#{loginMB.logout}" style="margin-right:20px;" ajax="false">  
+                                        <p:graphicImage value="/img/icono-salir.jpg" height="20" width="20" title="#{msg['encabezado.logout']}" />
+                                    </p:commandLink>
+                                </td>
+                            </tr>
+                        </table>
                         <p:ajaxStatus widgetVar="ajaxStatusWV" style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
                             <c:facet name="start">
                                 <p:graphicImage value="/img/wait_progress.gif" height="50px" width="50px" />
@@ -88,20 +94,20 @@
                 <p:separator style="width:100%;height:0px" />		
 
             </h:form>
-            
+
             <ui:include src="/web-pages/general/seguridad/cambio_password.xhtml" />
-           
+
             <div id="contenido" class="contenido">
                 <ui:insert name="contenido">
                     <ui:include src="/web-pages/templates/maestro/contenido.xhtml" />
                 </ui:insert>
             </div>
             <div id="pie-pagina" class="pie-pagina">
-                        
-                            <ui:include src="/web-pages/templates/maestro/pie-pagina.xhtml" />
-                        
-             </div>
-            
+
+                <ui:include src="/web-pages/templates/maestro/pie-pagina.xhtml" />
+
+            </div>
+
         </div>
     </h:body>
 </html>

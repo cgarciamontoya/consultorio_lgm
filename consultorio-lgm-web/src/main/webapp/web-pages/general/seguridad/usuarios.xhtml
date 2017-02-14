@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+    <h:body>
+        <ui:composition template="/web-pages/templates/maestro/layout-maestro.xhtml">
+            <ui:define name="titulo">#{msg['usuario.etiqueta.titulo']}</ui:define>
+            <ui:define name="contenido">
+                <h:form id="usuariosForm" prependId="false">
+                    <h:panelGroup id="pgFormaDatos"> 
+                        <div style="width: 700px; height: 100%; margin-left: auto; margin-right: auto;">
+                            <p:fieldset legend="#{msg['usuario.etiqueta.titulo']}" toggleable="true" toggleSpeed="500">  
+                                <p:growl id="mensajes" life="3000" />
+                                <h:panelGrid id="gridDatos" style="width: 650px;"
+                                             columns="6">
+                                            <p:outputLabel for="txtNombre" value="#{msg['usuario.etiqueta.nombre']}" />
+                                            <p:inputText id="txtNombre"
+                                                         value="#{usuariosMB.usuario.nombre}"/>
+                                            
+                                            <p:outputLabel for="txtPaterno" value="#{msg['usuario.etiqueta.apellido.paterno']}" />
+                                            <p:inputText id="txtPaterno"
+                                                         value="#{usuariosMB.usuario.apellidoPaterno}"/>
+                                            
+                                            <p:outputLabel for="txtMaterno" value="#{msg['usuario.etiqueta.apellido.materno']}" />
+                                            <p:inputText id="txtMaterno"
+                                                         value="#{usuariosMB.usuario.apellidoMaterno}"/>
+                                            
+                                            <p:outputLabel for="txtUsername" value="#{msg['usuario.etiqueta.usuario']}" />
+                                            <p:inputText id="txtUsername"
+                                                         value="#{usuariosMB.usuario.usuario}"/>
+
+                                            <p:outputLabel for="txtPassword" value="#{msg['usuario.etiqueta.contrasenia']}" />
+                                            <p:password id="txtPassword"
+                                                         value="#{usuariosMB.usuario.contrasena}"/>
+                                            
+                                            <p:outputLabel for="txtPasswordConfirm" value="#{msg['usuario.etiqueta.contrasenia.confirmar']}" />
+                                            <p:password id="txtPasswordConfirm"
+                                                         value="#{usuariosMB.confirmaPassword}"/>
+
+                                            <p:outputLabel for="txtCedula" value="Cédula" />
+                                            <p:inputText id="txtCedula"
+                                                         value="#{usuariosMB.usuario.cedula}"
+                                                         maxlength="5"/>
+                                            
+                                            <p:outputLabel for="txtIniciales" value="#{msg['usuario.etiqueta.iniciales']}" />
+                                            <p:inputText id="txtIniciales"
+                                                         value="#{usuariosMB.usuario.iniciales}"
+                                                         maxlength="5"/>
+                                </h:panelGrid> 
+                                <br /> 
+                                <p:toolbar id="toolDatosBotones">  
+                                    <p:toolbarGroup align="right"> 
+                                        <p:commandButton id="btnGuardar"
+                                                         value="#{msg['boton.etiqueta.guardar']}"
+                                                         onclick="confirmationGuardar.show()"
+                                                         title="#{msg['boton.etiqueta.guardar']}"
+                                                         icon="ui-icon-disk" /> 
+                                        <p:confirmDialog message="#{msg['usuario.confirmar.guardar']}"
+                                                         header="#{msg['usuario.confirmar.confirmar']}"
+                                                         severity="alert"
+                                                         widgetVar="confirmationGuardar" >
+                                            <p:commandButton value="Si"
+                                                             update="gridDatos mensajes tablaResultados"
+                                                             oncomplete="confirmationGuardar.hide()"
+                                                             actionListener="#{usuariosMB.guarda}" 
+                                                             styleClass="ui-confirmdialog-yes"
+                                                             icon="ui-icon-check"/>
+                                            <p:commandButton value="No"
+                                                             onclick="confirmationGuardar.hide()"
+                                                             type="button"
+                                                             styleClass="ui-confirmdialog-no"
+                                                             icon="ui-icon-close" />
+                                        </p:confirmDialog>
+                                        <p:separator />
+                                        <p:commandButton id="btnLimpiar"
+                                                         value="#{msg['boton.etiqueta.limpiar']}"
+                                                         title="#{msg['boton.etiqueta.limpiar']}"
+                                                         update="gridDatos mensajes tablaResultados toolDatosBotones"
+                                                         icon="ui-icon-circle-close" 
+                                                         actionListener="#{usuariosMB.limpiaUsuario}"
+                                                         process="@this">
+                                            <p:resetInput target="gridDatos" />
+                                        </p:commandButton> 
+
+                                        <p:commandButton id="btnBuscar"
+                                                         value="#{msg['boton.etiqueta.buscar']}"
+                                                         title="#{msg['boton.etiqueta.buscar']}"
+                                                         icon="ui-icon-search"
+                                                         update="tablaResultados mensajes"
+                                                         actionListener="#{usuariosMB.buscar}"/>
+
+                                    </p:toolbarGroup>  
+
+                                </p:toolbar>  
+                            </p:fieldset>
+                        </div>
+                    </h:panelGroup> 
+                    <p:spacer width="1px" height="10px"/>
+                    <h:panelGroup id="pgFormaDatosGrid"> 
+                        <div style="width: 700px; height: 100%; margin-left: auto; margin-right: auto;">
+                            <p:dataTable id="tablaResultados"
+                                         var="usr"
+                                         value="#{usuariosMB.usuarios}" 
+                                         emptyMessage="#{msg['general.lbl.sinResultados']}"
+                                         paginator="true"
+                                         rows="10"
+                                         paginatorPosition="bottom"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} 
+                                         {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                         rowsPerPageTemplate="10,20,30"
+                                         selectionMode="single"
+                                         rowKey="#{usr.idUsuario}">  
+                                <p:ajax event="rowSelect"
+                                        listener="#{usuariosMB.usuarioSeleccion}" 
+                                        update=":usuariosForm:pgFormaDatos"/>  
+                                <p:column headerText="#{msg['usuario.etiqueta.usuario']}">
+                                    <h:outputText value="#{usr.usuario}" />  
+                                </p:column>
+                                <p:column headerText="#{msg['usuario.etiqueta.nombre']}">
+                                    <h:outputText value="#{usr.nombre}" />  
+                                </p:column>
+                                <p:column headerText="#{msg['usuario.etiqueta.apellido.paterno']}">
+                                    <h:outputText value="#{usr.apellidoPaterno}" />  
+                                </p:column>
+                                <p:column headerText="#{msg['usuario.etiqueta.apellido.materno']}">
+                                    <h:outputText value="#{usr.apellidoMaterno}" />  
+                                </p:column>
+                                <p:column headerText="Cédula">
+                                    <h:outputText value="#{usr.cedula}" />  
+                                </p:column>
+                                <p:column headerText="#{msg['usuario.etiqueta.iniciales']}">
+                                    <h:outputText value="#{usr.iniciales}" />  
+                                </p:column>
+                            </p:dataTable>  
+                        </div>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

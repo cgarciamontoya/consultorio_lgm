@@ -41,10 +41,10 @@
         <param-value>bootstrap</param-value>
     </context-param>
     
-    <!--context-param>
+    <context-param>
 		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
 		<param-value>/WEB-INF/springsecurity.taglib.xml</param-value>
-	</context-param-->
+    </context-param>
     
     <context-param>
         <param-name>contextConfigLocation</param-name>

@@ -33,7 +33,7 @@ public class TestUsuarioDAO extends TestDAOBaseDatosBase {
         
     }
     
-    public void testGuardar() {
+    /*public void testGuardar() {
         Usuario usuario = new Usuario();
         usuario.setNombre("Laura Fabiola");
         usuario.setApellidoPaterno("Garcia");
@@ -42,5 +42,5 @@ public class TestUsuarioDAO extends TestDAOBaseDatosBase {
         usuario.setContrasena("admin");
         usuario.setIniciales("admin");
         dao.guardar(usuario);
-    }
+    }*/
 }

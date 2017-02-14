@@ -83,8 +83,13 @@ public class AdministradorAcceso implements AuthenticationProvider {
     	        usuario.getNombre() + " " + usuario.getApellidoPaterno() + " " + usuario.getApellidoMaterno());
         httpServletRequest.getSession().setAttribute("nombreUsuario", authentication.getName());
     	
-    	List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+    	List<GrantedAuthority> authorities = new ArrayList<>();
          authorities.add ( new SimpleGrantedAuthority("ROLE_AUTHENTICATED") );
+         
+        if (usuario.getUsuario().equalsIgnoreCase("lauragm") || 
+                usuario.getUsuario().equalsIgnoreCase("admin")) {
+            authorities.add ( new SimpleGrantedAuthority("ROLE_ADMIN") );
+        }
     	
     	Authentication nuevaAuthentication = new UsernamePasswordAuthenticationToken(authentication.getName(),
                 authentication.getCredentials(), authorities);

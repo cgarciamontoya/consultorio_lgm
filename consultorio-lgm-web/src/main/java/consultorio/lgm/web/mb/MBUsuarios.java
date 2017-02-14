@@ -33,6 +33,7 @@ public class MBUsuarios implements Serializable {
     private Usuario usuarioSeleccionado;
     private String nuevaContrasenia;
     private String actualContrasenia;
+    private boolean edicion;
  
 
     /**
@@ -60,7 +61,7 @@ public class MBUsuarios implements Serializable {
             return;
         }
         //Actualizando el usuario
-        if (usuario.getIdUsuario() != null) {
+        if (usuario.getIdUsuario() != null && usuario.getIdUsuario() > 0) {
             try {
                 servicioUsuario.actualizarUsuario(usuario);
                 vistaHelper.agregarMensajeExito("usuario.actualizado.correcto");
@@ -113,7 +114,7 @@ public class MBUsuarios implements Serializable {
 
 
     }
-
+    
     /**
      * Valida que los datos introducidos por el usuario sean correctos o tenga algun valor
      * @return boolean indica que es si son validos o no.
@@ -122,7 +123,7 @@ public class MBUsuarios implements Serializable {
         //Valida que los datos requeridos no estén vacíos
         boolean valido = true;
         if (usuario.getUsuario().isEmpty() || usuario.getNombre().isEmpty() || usuario.getApellidoPaterno().isEmpty()
-                || usuario.getApellidoMaterno().isEmpty() || usuario.getCorreo().isEmpty()) {
+                || usuario.getApellidoMaterno().isEmpty()) {
             if (usuario.getUsuario().isEmpty()) {
                 vistaHelper.agregarMensajeError("usuario.datos.vacios.usuario");
                 valido = false;
@@ -139,13 +140,6 @@ public class MBUsuarios implements Serializable {
                 vistaHelper.agregarMensajeError("usuario.datos.vacios.ap.materno");
                 valido = false;
             }
-            if (usuario.getCorreo().isEmpty()) {
-                vistaHelper.agregarMensajeError("usuario.datos.vacios.email");
-                valido = false;
-            }
-
-            
-            
 
         } else {
 
@@ -175,12 +169,6 @@ public class MBUsuarios implements Serializable {
                 valido = false;
             }
 
-            if (usuario.getCorreo() != null && !usuario.getCorreo().isEmpty() 
-                    && !usuario.getCorreo().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-"
-                            + "]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
-                vistaHelper.agregarMensajeError("usuario.datos.invalidos.email");
-                valido = false;
-            }
             if (usuario.getIdUsuario() == null) {
                 if (usuario.getContrasena().isEmpty()) {
                     vistaHelper.agregarMensajeError("usuario.datos.vacios.contrasenia");
@@ -208,13 +196,13 @@ public class MBUsuarios implements Serializable {
             usuario.setNombre(usuario.getNombre().isEmpty() ? null : usuario.getNombre());
             usuario.setApellidoPaterno(usuario.getApellidoPaterno().isEmpty() ? null : usuario.getApellidoPaterno());
             usuario.setApellidoMaterno(usuario.getApellidoMaterno().isEmpty() ? null : usuario.getApellidoMaterno());
-            usuario.setCorreo(usuario.getCorreo().isEmpty() ? null : usuario.getCorreo());
+            usuario.setCedula(usuario.getCedula().isEmpty() ? null : usuario.getCedula());
             usuario.setIniciales(usuario.getIniciales().isEmpty() ? null : usuario.getIniciales());
             if (usuario.getNombre() == null  
                     && usuario.getUsuario() == null 
                     && usuario.getApellidoPaterno() == null 
                     && usuario.getApellidoMaterno() == null 
-                    && usuario.getCorreo() == null
+                    && usuario.getCedula()== null
                     && usuario.getIniciales() == null) {
                 usuarios = servicioUsuario.recuperarTodos();
             } else {
@@ -249,6 +237,7 @@ public class MBUsuarios implements Serializable {
     public void usuarioSeleccion(SelectEvent evento) {
         usuarioSeleccionado = (Usuario) evento.getObject();
         usuario = usuarioSeleccionado;
+        edicion = true;
     }
     
     /**
@@ -263,6 +252,7 @@ public class MBUsuarios implements Serializable {
      */
     public void cancelaEdicion() {
         limpiaUsuario();
+        edicion = false;
     }
 
     /**
@@ -394,7 +384,13 @@ public class MBUsuarios implements Serializable {
     public void setActualContrasenia(String actualContrasenia) {
         this.actualContrasenia = actualContrasenia;
     }
-    
-    
+
+    public boolean isEdicion() {
+        return edicion;
+    }
+
+    public void setEdicion(boolean edicion) {
+        this.edicion = edicion;
+    }
     
 }
