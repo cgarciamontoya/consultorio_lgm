@@ -1,0 +1,25 @@
+<persistence version="2.0" 
+	xmlns="http://java.sun.com/xml/ns/persistence" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd ">
+ 
+    <persistence-unit name="lgmPU" transaction-type="RESOURCE_LOCAL">
+    	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <mapping-file>META-INF/jpql/named-queries.xml</mapping-file>
+        <class>consultorio.lgm.datos.entidades.Usuario</class>
+        <class>consultorio.lgm.datos.entidades.CatEnfermedadesCronicas</class>
+        <class>consultorio.lgm.datos.entidades.CatMpf</class>
+        <class>consultorio.lgm.datos.entidades.CatEscolaridad</class>
+        <class>consultorio.lgm.datos.entidades.CatEstadoCivil</class>
+        <class>consultorio.lgm.datos.entidades.CatGrupoSanguineo</class>
+        <class>consultorio.lgm.datos.entidades.CatPresentacion</class>
+        <class>consultorio.lgm.datos.entidades.AntecedentesGenerales</class>
+        <class>consultorio.lgm.datos.entidades.AntecedentesGinecologicos</class>
+        <class>consultorio.lgm.datos.entidades.Consulta</class>
+        <class>consultorio.lgm.datos.entidades.Medicamento</class>
+        <class>consultorio.lgm.datos.entidades.Paciente</class>
+        <class>consultorio.lgm.datos.entidades.RelAntecedentesEnfermedades</class>
+        <class>consultorio.lgm.datos.entidades.Tratamiento</class>
+        <class>consultorio.lgm.datos.entidades.Configuracion</class>
+    </persistence-unit>
+</persistence>

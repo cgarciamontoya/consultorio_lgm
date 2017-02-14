@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NotaMedica" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="686bdfb6-3b4a-4c12-b970-8f574a0b2a6f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="EscudoMedicina" class="java.io.InputStream"/>
+	<parameter name="EscudoUAZ" class="java.io.InputStream"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="diagnostico" class="java.lang.String"/>
+	<parameter name="motivoConsulta" class="java.lang.String"/>
+	<parameter name="signosVitales" class="java.lang.String"/>
+	<parameter name="exploracionFisica" class="java.lang.String"/>
+	<parameter name="plan" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="79" height="79" uuid="479723a5-a50c-4af4-9d86-b852998c9c7d"/>
+				<imageExpression><![CDATA[$P{EscudoMedicina}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="493" y="0" width="79" height="79" uuid="d806d073-9c1a-4979-8f46-bd24844cc3c7"/>
+				<imageExpression><![CDATA[$P{EscudoUAZ}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="79" y="24" width="414" height="20" uuid="3b04676e-2f8e-44eb-b7a2-084729fe4171"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dra. Laura Fabiola García Montoya]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="44" width="414" height="20" uuid="030ea41e-c39a-4b8a-83a0-fd471584bd92"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ced. Prof. 8014482]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="1" width="414" height="20" uuid="e668c80e-21ac-4928-9ddf-c676afa27ffe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Universidad Autónoma de Zacatecas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25">
+			<staticText>
+				<reportElement x="0" y="4" width="572" height="20" uuid="17eae307-da48-4a4f-ad2a-c89262b940ab"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA MÉDICA DE EVOLUCIÓN]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="572" height="1" forecolor="#9999FF" uuid="f9a4d296-98d4-4245-a3a9-92f8c3126e53"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="145" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="48" y="0" width="366" height="20" uuid="ea71387e-db88-477a-adbf-4711416c1fb7"/>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="48" height="20" uuid="bea29876-a5a6-4ffd-b4b6-b0bc7df5b9a8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h:mm a">
+				<reportElement x="452" y="0" width="120" height="20" uuid="47d16702-02a2-4bef-b58b-74e038153988"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="414" y="0" width="38" height="20" uuid="d6828e2e-da5c-44d6-8cc8-5a278b94731f"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="25" width="572" height="20" uuid="7a08da7b-aa93-49e0-b6e5-679549c4f722"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{motivoConsulta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="50" width="572" height="20" uuid="647b0cfb-c58c-464f-9a54-4de1555cf908"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{signosVitales}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="75" width="572" height="20" uuid="27b367ed-bf48-4a89-9b7e-cef721e1bf73"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{exploracionFisica}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="100" width="572" height="20" uuid="9cd6173e-99d1-4f90-bd51-e552d2acdb73"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{diagnostico}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="125" width="572" height="20" uuid="9892ee50-edfc-4962-84a2-dbba419ca71c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{plan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="37" width="572" height="20" uuid="26c9adfd-bef6-4f54-be37-b0734712d9d2"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Dra. Laura Fabiola García Montoya]]></text>
+			</staticText>
+			<line>
+				<reportElement x="182" y="37" width="205" height="1" uuid="7b644eee-c943-43c9-aca9-7e5ac0bb7c59"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="57" width="572" height="20" uuid="af37388c-c705-416c-94e6-f8e88ffb48e9"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Ced. Prof. 8014482]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="452" y="0" width="80" height="20" uuid="2bce3618-d01b-4891-b774-59400164af3c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="532" y="0" width="40" height="20" uuid="55ac19a0-b6c7-4040-bc82-f76742bd0872"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="receta" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="686bdfb6-3b4a-4c12-b970-8f574a0b2a6f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="EscudoMedicina" class="java.io.InputStream"/>
+	<parameter name="EscudoUAZ" class="java.io.InputStream"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="paterno" class="java.lang.String"/>
+	<parameter name="materno" class="java.lang.String"/>
+	<parameter name="fecha" class="java.util.Date"/>
+	<parameter name="diagnostico" class="java.lang.String"/>
+	<parameter name="proximaConsulta" class="java.util.Date"/>
+	<parameter name="idConsulta" class="java.lang.Long"/>
+	<queryString language="SQL">
+		<![CDATA[select m.nombre nombreMedicamento, p.descripcion presentacion, t.dosis, t.horario, t.duracion, t.recomendaciones  from tratamiento t
+inner join medicamento m on t.id_medicamento = m.id
+inner join cat_presentacion p on m.presentacion = p.id
+where t.id_consulta = $P{idConsulta}]]>
+	</queryString>
+	<field name="nombreMedicamento" class="java.lang.String"/>
+	<field name="presentacion" class="java.lang.String"/>
+	<field name="dosis" class="java.lang.String"/>
+	<field name="horario" class="java.lang.String"/>
+	<field name="duracion" class="java.lang.String"/>
+	<field name="recomendaciones" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="79" height="79" uuid="479723a5-a50c-4af4-9d86-b852998c9c7d"/>
+				<imageExpression><![CDATA[$P{EscudoMedicina}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="493" y="0" width="79" height="79" uuid="d806d073-9c1a-4979-8f46-bd24844cc3c7"/>
+				<imageExpression><![CDATA[$P{EscudoUAZ}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="79" y="24" width="414" height="20" uuid="3b04676e-2f8e-44eb-b7a2-084729fe4171"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dra. Laura Fabiola García Montoya]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="44" width="414" height="20" uuid="030ea41e-c39a-4b8a-83a0-fd471584bd92"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ced. Prof. 8014482]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="1" width="414" height="20" uuid="e668c80e-21ac-4928-9ddf-c676afa27ffe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Universidad Autónoma de Zacatecas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25">
+			<staticText>
+				<reportElement x="0" y="4" width="48" height="20" uuid="17eae307-da48-4a4f-ad2a-c89262b940ab"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="48" y="4" width="100" height="20" uuid="9bb4b254-8fff-44c9-a2d6-affeaa1fb049"/>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="572" height="1" forecolor="#9999FF" uuid="f9a4d296-98d4-4245-a3a9-92f8c3126e53"/>
+			</line>
+			<staticText>
+				<reportElement x="182" y="5" width="65" height="20" uuid="7f850e97-3ac7-4d47-be90-b9605a38b442"/>
+				<text><![CDATA[Prox. Cita:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="247" y="5" width="130" height="20" uuid="91964476-0f10-459f-b169-1387623616d2"/>
+				<textFieldExpression><![CDATA[$P{proximaConsulta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="63" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="48" y="0" width="134" height="20" uuid="ea71387e-db88-477a-adbf-4711416c1fb7"/>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="48" height="20" uuid="bea29876-a5a6-4ffd-b4b6-b0bc7df5b9a8"/>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="0" width="65" height="20" uuid="0ce2ef6e-9c44-4abb-bcce-d62d8f0ce4ec"/>
+				<text><![CDATA[Ap. Paterno:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="0" width="65" height="20" uuid="883cb2dd-d9ec-41f1-8e25-43d020b148cd"/>
+				<text><![CDATA[Ap. Materno:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="247" y="0" width="130" height="20" uuid="b921fff7-b1c4-4acb-b77b-967be4144b6c"/>
+				<textFieldExpression><![CDATA[$P{paterno}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="442" y="0" width="130" height="20" uuid="575c011f-8a60-4597-a95e-100437352483"/>
+				<textFieldExpression><![CDATA[$P{materno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="63" height="20" uuid="421dcbe5-1ae8-45dc-8e37-8b74de05b121"/>
+				<text><![CDATA[Diagnóstico:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="63" y="20" width="509" height="20" isPrintWhenDetailOverflows="true" uuid="3c6f3289-02c5-46fa-be99-0c1c1c90dd38"/>
+				<textFieldExpression><![CDATA[$P{diagnostico}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="0" y="40" width="572" height="1" forecolor="#9999FF" uuid="3978618b-34a1-4fc8-beb5-51bb7cbf7eac"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="40" width="100" height="20" uuid="4bea23f1-0347-4914-b17f-2a6f1fefcc75"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Medicamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="100" y="40" width="100" height="20" uuid="4021b9fb-dd8d-4515-a6d3-573d41d63116"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Presentación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="200" y="40" width="47" height="20" uuid="6b599051-844b-44f4-83e8-61502526f5ef"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Dosis]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="247" y="40" width="100" height="20" uuid="e43f2cb3-47de-4540-9e64-ffd1017f2541"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Horario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="347" y="40" width="100" height="20" uuid="cb1ac054-272e-46f1-b8f5-28c2b1ff7b9b"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Duración]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="447" y="40" width="125" height="20" uuid="8ee3e79c-8d61-4a6b-98cc-af1ad37b99d1"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Recomendaciones]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="0" y="60" width="572" height="1" forecolor="#9999FF" uuid="c5542093-03ca-4a02-a535-12d2fb923eca"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="572" height="20" backcolor="#ECECEC" uuid="dbf10df8-ba11-4c2f-9674-fbff24fcc981">
+					<printWhenExpression><![CDATA[new Boolean( $V{PAGE_COUNT}.intValue() % 2 ==0 )]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="c20c390f-a87d-4608-8461-2a931c6392a6"/>
+				<textFieldExpression><![CDATA[$F{nombreMedicamento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="dbf2238c-23ef-4fbf-b09a-e2867e2e99fd"/>
+				<textFieldExpression><![CDATA[$F{presentacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="47" height="20" isPrintWhenDetailOverflows="true" uuid="9af60c37-7c3a-4736-8c82-533e1ab1fa7f"/>
+				<textFieldExpression><![CDATA[$F{dosis}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="247" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="14967d51-04c4-460d-9044-b4e077b9c141"/>
+				<textFieldExpression><![CDATA[$F{horario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="347" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="b70b47a5-9090-434a-af53-15b13c7e0d25"/>
+				<textFieldExpression><![CDATA[$F{duracion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="447" y="0" width="125" height="20" isPrintWhenDetailOverflows="true" uuid="f7432671-ffdf-4959-b795-57c13bae0c1e"/>
+				<textFieldExpression><![CDATA[$F{recomendaciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="57" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="37" width="572" height="20" uuid="26c9adfd-bef6-4f54-be37-b0734712d9d2"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Dra. Laura Fabiola García Montoya]]></text>
+			</staticText>
+			<line>
+				<reportElement x="182" y="37" width="205" height="1" uuid="7b644eee-c943-43c9-aca9-7e5ac0bb7c59"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="452" y="0" width="80" height="20" uuid="2bce3618-d01b-4891-b774-59400164af3c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="532" y="0" width="40" height="20" uuid="55ac19a0-b6c7-4040-bc82-f76742bd0872"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

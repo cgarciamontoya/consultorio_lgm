@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:util="http://www.springframework.org/schema/util"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    <beans:bean id="dtobinder" class="org.jdto.spring.SpringDTOBinder" />
+    <beans:bean id="reporteBase" class="consultorio.lgm.reportes.ReporteBase" abstract="true">
+    	<beans:property name="lgmDataSource" ref="lgmDataSource"/>
+    </beans:bean>
+    <beans:bean id="servicioUsuario" class="consultorio.lgm.servicios.impl.UsuarioServicioImpl">
+        <beans:property name="usuarioDAO" ref="usuarioDAO"/>
+    </beans:bean>
+	
+    <beans:bean id="reportesManagerServicio" class="consultorio.lgm.servicios.impl.ReportesManagerServicioImpl">
+        <beans:property name="generadoresReporte">
+            <beans:map>
+                <beans:entry key="RecetasReporte" value-ref="recetasReporte" />
+                <beans:entry key="HistoriaClinicaReporte" value-ref="historiaClinicaReporte" />
+                <beans:entry key="NotaMedicaReporte" value-ref="notaMedicaReporte" />
+            </beans:map>
+        </beans:property>
+    </beans:bean>
+    <beans:bean id="catalogosServicio" class="consultorio.lgm.servicios.impl.CatalogosServicioImpl"/>
+    <beans:bean id="pacienteServicio" class="consultorio.lgm.servicios.impl.PacienteServicioImpl"/>
+    <beans:bean id="consultasServicio" class="consultorio.lgm.servicios.impl.ConsultasServicioImpl"/>
+    <beans:bean id="recetasReporte" class="consultorio.lgm.reportes.RecetasReportes" parent="reporteBase"/>
+    <beans:bean id="historiaClinicaReporte" class="consultorio.lgm.reportes.HistoriaClinicaReporte" parent="reporteBase"/>
+    <beans:bean id="notaMedicaReporte" class="consultorio.lgm.reportes.NotaMedicaReporte" parent="reporteBase"/>
+</beans:beans>

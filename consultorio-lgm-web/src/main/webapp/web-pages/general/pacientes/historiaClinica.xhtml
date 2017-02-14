@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+    <h:body>
+        <ui:composition template="/web-pages/templates/maestro/layout-maestro.xhtml">
+            <ui:define name="titulo">#{msg['historiaClinica.lbl.titulo']}</ui:define>
+            <ui:define name="contenido">
+                <h:form id="historiaClinicaForm" prependId="false">
+                    <h:panelGroup id="pgFormaDatos"> 
+                        <div style="width: 550px; height: 100%; margin-left: auto; margin-right: auto;">
+                            <p:fieldset legend="#{msg['historiaClinica.lbl.titulo']}" toggleable="true" toggleSpeed="500">  
+                                <p:growl id="mensajes" life="3000" />
+                                <h:panelGrid id="gridDatos" style="width: 500px;">
+                                        <p:outputLabel value="#{msg['historiaClinica.lbl.altaPaciente']}"
+                                                       rendered="#{empty historiaClinicaMB.paciente.id or historiaClinicaMB.paciente.id eq 0}"/>
+                                        <p:outputLabel value="#{msg['historiaClinica.lbl.actualizacionPaciente']} #{historiaClinicaMB.paciente.id}"
+                                                       rendered="#{not empty historiaClinicaMB.paciente.id and historiaClinicaMB.paciente.id gt 0}"/>
+                                </h:panelGrid> 
+                                <br /> 
+                                <p:toolbar id="toolDatosBotones">  
+                                    <p:toolbarGroup align="right"> 
+                                        <p:commandButton id="btnLimpiar"
+                                                         value="#{msg['boton.etiqueta.limpiar']}"
+                                                         title="#{msg['boton.etiqueta.limpiar']}"
+                                                         update="gridDatos mensajes tabHC"
+                                                         icon="ui-icon-circle-close" 
+                                                         actionListener="#{historiaClinicaMB.limpiar}"
+                                                         process="@this">
+                                            <p:resetInput target="gridDatos" />
+                                        </p:commandButton>
+
+                                        <p:commandButton id="btnGuardar"
+                                                         value="#{msg['boton.etiqueta.guardar']}"
+                                                         onclick="confirmationGuardar.show()"
+                                                         title="#{msg['boton.etiqueta.guardar']}"
+                                                         icon="ui-icon-disk" /> 
+                                        <p:confirmDialog message="#{msg['historiaClinica.confirmar.guardar']}"
+                                                         header="#{msg['historiaClinica.confirmar.guardarTitulo']}"
+                                                         severity="alert"
+                                                         widgetVar="confirmationGuardar" >
+                                            <p:commandButton value="Si"
+                                                             update="gridDatos mensajes tabHC"
+                                                             oncomplete="confirmationGuardar.hide()"
+                                                             actionListener="#{historiaClinicaMB.guardar}"
+                                                             styleClass="ui-confirmdialog-yes"
+                                                             icon="ui-icon-check"/>
+                                            <p:commandButton value="No"
+                                                             onclick="confirmationGuardar.hide()"
+                                                             type="button"
+                                                             styleClass="ui-confirmdialog-no"
+                                                             icon="ui-icon-close" />
+                                        </p:confirmDialog>
+                                        <p:commandButton id="btnNuevoPaciente"
+                                                         value="#{msg['boton.etiqueta.nuevo']}"
+                                                         title="#{msg['boton.etiqueta.nuevo']}"
+                                                         update="pgFormaDatos mensajes tabHC"
+                                                         icon="ui-icon-circle-plus" 
+                                                         actionListener="#{historiaClinicaMB.crearNuevo}"/>
+                                        <p:commandButton id="btnReceta"
+                                                        value="#{msg['boton.etiqueta.imprimir']}"
+                                                        title="#{msg['boton.etiqueta.imprimir']}"
+                                                        actionListener="#{historiaClinicaMB.generarHistoriaClinica}"
+                                                        disabled="#{empty historiaClinicaMB.paciente.id or historiaClinicaMB.paciente.id eq 0}"
+                                                        icon="ui-icon-print"
+                                                        oncomplete="validarDescarga();"
+                                                        update="pgFormaDatos mensajes tabHC panelVistaPrevia"/>
+                                    </p:toolbarGroup>  
+
+                                </p:toolbar>  
+                            </p:fieldset>
+                        </div>
+                    </h:panelGroup> 
+                    <p:spacer width="1px" height="10px"/>
+                    <h:panelGroup id="pgFormaDatosGrid"> 
+                        <div style="width: 1000px; height: 100%; margin-left: auto; margin-right: auto;">
+                            <p:tabView id="tabHC">
+                                <p:tab id="tbFichaIdentificacion"
+                                       title="#{msg['historiaClinica.lbl.fichaIdentificacion']}">
+                                    <ui:include src="fichaIdentificacion.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tbAHF"
+                                       title="#{msg['historiaClinica.lbl.ahf']}">
+                                    <ui:include src="antecedentesHF.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tbAPP"
+                                       title="#{msg['historiaClinica.lbl.app']}">
+                                    <ui:include src="antecedentesPP.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tbAPNP"
+                                       title="#{msg['historiaClinica.lbl.apnp']}">
+                                    <ui:include src="antecedentesPNP.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tbAGO"
+                                       title="#{msg['historiaClinica.lbl.ago']}">
+                                    <ui:include src="antecedentesGO.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tbNotaMedica"
+                                       title="#{msg['historiaClinica.lbl.notaMedica']}"
+                                       rendered="#{not empty historiaClinicaMB.notaMedica}">
+                                    <ui:include src="notaMedica.xhtml"/>
+                                </p:tab>
+                            </p:tabView>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup id="panelVistaPrevia">
+                        <p:commandButton id="descargaHistoriaClinica"
+                                         value=""
+                                         ajax="false"
+                                         style="visibility: hidden;">
+                            <p:fileDownload value="#{historiaClinicaMB.historiaClinicaExportada}"/>
+                        </p:commandButton>
+                        <script type="text/javascript">
+                            function validarDescarga() {
+                                var exportado = #{not empty historiaClinicaMB.historiaClinicaExportada};
+                                if (exportado) {
+                                    document.getElementById('descargaHistoriaClinica').click();
+                                }
+                            }
+                        </script>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

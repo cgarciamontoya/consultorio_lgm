@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+  
+	<!-- Configuración de cifrado en la base de datos -->
+	<beans:bean id="bouncyCastleProvider" class="org.bouncycastle.jce.provider.BouncyCastleProvider"/>
+	
+	<beans:bean id="randomSalt" class="org.jasypt.salt.RandomSaltGenerator"/>
+    
+    <beans:bean id="environmentPBEConfig" class="org.jasypt.encryption.pbe.config.EnvironmentPBEConfig">
+        <beans:property name="algorithm" value="PBEWITHSHA256AND256BITAES-CBC-BC"/>
+        <beans:property name="keyObtentionIterations" value="1000"/>
+        <beans:property name="passwordSysPropertyName" value="jasypt.encryption.password"/>
+        <beans:property name="provider" ref="bouncyCastleProvider"/>
+    </beans:bean>
+
+    <beans:bean id="cifradorCadenaFuerte" class="org.jasypt.encryption.pbe.PooledPBEStringEncryptor">
+        <beans:property name="config" ref="environmentPBEConfig"/>
+        <beans:property name="saltGenerator" ref="randomSalt"/>
+        <beans:property name="poolSize" value="10"/>
+    </beans:bean>
+
+    <beans:bean id="cifradorCadenaHibernate" class="org.jasypt.hibernate4.encryptor.HibernatePBEStringEncryptor">
+        <beans:property name="registeredName" value="strongHibernateStringEncryptor"/>
+        <beans:property name="encryptor" ref="cifradorCadenaFuerte"/>
+    </beans:bean>
+  
+</beans:beans>

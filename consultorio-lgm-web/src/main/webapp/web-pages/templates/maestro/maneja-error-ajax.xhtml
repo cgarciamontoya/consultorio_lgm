@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jstl="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+    <h:head>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/skin.css" />
+        <title>LGM - <ui:insert name="titulo"></ui:insert></title>
+    </h:head>
+
+    <h:body>
+		
+		<pe:ajaxErrorHandler  
+        title="Error"  
+        body="&lt;b&gt;La sesión ha expirado, autentif\u00edquese nuevamente.&lt;/b&gt;"  
+        button="Cerrar"  
+        widgetVar="myAjaxErrorHandler" buttonOnclick="myAjaxErrorHandler.hide()"  
+        type="javax.faces.application.ViewExpiredException" />
+        
+        <pe:ajaxErrorHandler  
+        title="Error"  
+        body="&lt;b&gt;Ocurri\u00F3 un error al realizar la operaci\u00F3n solicitada, notifique al administrador del sistema.&lt;/b&gt;"  
+        button="Cerrar"  
+        widgetVar="myAjaxErrorHandlerSCBExcepcion" buttonOnclick="myAjaxErrorHandlerSCBExcepcion.hide()"  
+        type="java.lang.NullPointerException" />
+        
+        
+        <pe:ajaxErrorHandler  
+        title="Error"  
+        body="&lt;b&gt;SCBExcepcion&lt;/b&gt;"  
+        button="Cerrar"  
+        widgetVar="myAjaxErrorHandlerSCBExcepcion" buttonOnclick="myAjaxErrorHandlerSCBExcepcion.hide()"  
+        type="consultorio.lgm.excepciones.ExcepcionServicio" />
+        
+        <pe:ajaxErrorHandler  
+        title="Error"  
+        button="Cerrar"  
+        widgetVar="manejadorErrorAjaxExcepcionDAO" buttonOnclick="manejadorErrorAjaxExcepcionDAO.hide()"  
+        type="consultorio.lgm.excepciones.ExcepcionDAO">
+        	<c:facet name="title">  
+		        Error <span style="color: red;">{error-name}</span>  
+		    </c:facet>  
+		    <c:facet name="body">  
+		        <div>  
+		            <h:form>  
+		                <p:tabView >  
+		                    <p:tab title="Mensaje">  
+		                        <h:panelGrid columns="2">  
+		                            <h:outputLabel value="Error: " />  
+		                            <h:outputText value="#{errorMB.error}" style="font-size: 1.2em;color:navy;" />
+		                        </h:panelGrid>  
+		                    </p:tab>  
+		                    <p:tab title="Detalle" rendered="#{errorMB.detalle}!= null">  
+		                        <div style="overflow: auto; height: 300px; width: 700px;">  
+		                            {error-stacktrace}  
+		                        </div>  
+		                    </p:tab>  
+		                </p:tabView>  
+		            </h:form>  
+		        </div>  
+		    </c:facet>  
+        
+        
+        </pe:ajaxErrorHandler>
+    </h:body>
+</html>

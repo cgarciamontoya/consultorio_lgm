@@ -1,0 +1,169 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:panelGrid id="pnlTratamiento">
+        <h:panelGrid columns="4"
+                     id="pnlTratamientoFiltros"
+                     columnClasses="textoDerecha alineacionTop, textoIzquierda alineacionTop, textoDerecha alineacionTop, textoIzquierda alineacionTop">
+            <p:outputLabel value="#{msg['consultas.lbl.medicamento']}"
+                           for="txtMedicamento"/>
+            <h:panelGroup>
+                <p:autoComplete id="txtMedicamento"
+                                value="#{consultasMB.medicamento}"
+                                var="med"
+                                itemLabel="#{med.nombre}"
+                                itemValue="#{med}"
+                                converter="medicamentoConverter"
+                                completeMethod="#{consultasMB.medicamentoComplete}"
+                                forceSelection="true"
+                                minQueryLength="3"
+                                size="58">
+                    <p:ajax event="itemSelect"
+                            listener="#{consultasMB.agregarMedicamentoTratamiento}"
+                            update="txtDescripcion"/>
+                    <p:column>
+                        <h:outputText value ="#{med.nombre}"/>
+                        <h:outputText value=" - "/>
+                        <h:outputText value="#{med.presentacion.descripcion}"/>
+                        <h:outputText value="#{msg['consultas.lbl.antibiotico']}"
+                                      rendered="#{med.antibiotico}"/>
+                    </p:column>
+                </p:autoComplete>
+                <p:commandButton id="btnOpnMed"
+                                 value=""
+                                 icon="ui-icon-folder-open"
+                                 style="width: 30px; height: 20px;"
+                                 onclick="medicamentosDialog.show();"/>
+            </h:panelGroup>
+            
+            <p:outputLabel value="#{msg['consultas.lbl.presentacion']}"/>
+            <h:panelGroup id="txtDescripcion">
+                <p:inputText value="#{consultasMB.medicamento.presentacion.descripcion}"
+                             readonly="true"
+                             style="width: 300px;"/>
+                <h:outputText value="#{msg['consultas.lbl.antibiotico']}"
+                                  rendered="#{med.antibiotico}"/>
+            </h:panelGroup>
+            
+            <p:outputLabel value="#{msg['consultas.lbl.dosis']}"
+                           for="txtDosis"/>
+            <p:inputText id="txtDosis"
+                         value="#{consultasMB.tratamiento.dosis}"
+                         maxlength="100"
+                         style="width: 300px;"/>
+            
+            <p:outputLabel value="#{msg['consultas.lbl.horario']}"
+                           for="txtHorario"/>
+            <p:inputText value="#{consultasMB.tratamiento.horario}"
+                         id="txtHorario"
+                         maxlength="100"
+                         style="width: 300px"/>
+            
+            <p:outputLabel value="#{msg['consultas.lbl.duracion']}"
+                           for="txtDuracion"/>
+            <p:inputText id="txtDuracion"
+                         value="#{consultasMB.tratamiento.duracion}"
+                         maxlength="100"
+                         style="width: 300px"/>
+            
+            <p:outputLabel value="#{msg['consultas.lbl.recomendaciones']}"
+                           for="txtRecomendaciones"/>
+            <p:inputTextarea id="txtRecomendaciones"
+                             value="#{consultasMB.tratamiento.recomendaciones}"
+                             maxlength="255"
+                             styleClass="textAreaMotivo"/>
+            <c:facet name="footer">
+                <p:toolbar id="toolBarTratamiento">
+                    <p:toolbarGroup align="right">
+                        <p:commandButton id="btnTratAgregar"
+                                         value="#{msg['boton.etiqueta.agregar']}"
+                                         title="#{msg['boton.etiqueta.agregar']}"
+                                         actionListener="#{consultasMB.agregarMedicamento}"
+                                         disabled="#{not empty consultasMB.consulta.id and consultasMB.consulta.id gt 0}"
+                                         icon="ui-icon-plus"
+                                         update="tablaMedicamentos pnlTratamientoFiltros :consultasForm:mensajes"/>
+                        <p:commandButton id="btnTratQuitar"
+                                         value="#{msg['boton.etiqueta.quitar']}"
+                                         title="#{msg['boton.etiqueta.quitar']}"
+                                         actionListener="#{consultasMB.quitarMedicamento}"
+                                         icon="ui-icon-minus"
+                                         disabled="#{empty consultasMB.receta or (not empty consultasMB.consulta.id and consultasMB.consulta.id gt 0)}"
+                                         update="tablaMedicamentos pnlTratamientoFiltros :consultasForm:mensajes"/>
+                        <p:separator/>
+                        <p:commandButton id="btnTratLimpiar"
+                                         value="#{msg['boton.etiqueta.limpiar']}"
+                                         title="#{msg['boton.etiqueta.limpiar']}"
+                                         actionListener="#{consultasMB.limpiarTratamiento}"
+                                         icon="ui-icon-trash"
+                                         disabled="#{not empty consultasMB.consulta.id and consultasMB.consulta.id gt 0}"
+                                         process="@this"
+                                         update="tablaMedicamentos pnlTratamientoFiltros">
+                            <p:resetInput target="pnlTratamientoFiltros"/>
+                        </p:commandButton>
+                        
+                        <p:commandButton id="btnReceta"
+                                         value="#{msg['boton.etiqueta.receta']}"
+                                         title="#{msg['boton.etiqueta.receta']}"
+                                         actionListener="#{consultasMB.generarReceta}"
+                                         disabled="#{empty consultasMB.consulta.id or consultasMB.consulta.id eq 0 or empty consultasMB.consulta.tratamientoList}"
+                                         icon="ui-icon-print"
+                                         oncomplete="validarDescarga();"
+                                         update="tablaMedicamentos pnlTratamientoFiltros :consultasForm:mensajes panelVistaPrevia"/>
+                    </p:toolbarGroup>
+                </p:toolbar>
+            </c:facet>
+        </h:panelGrid>
+        <p:spacer width="1px" height="10px"/>
+        <p:dataTable id="tablaMedicamentos"
+                     value="#{consultasMB.receta}"
+                     var="receta"
+                     emptyMessage="#{msg['consultas.lbl.sinMedicamentos']}"
+                     paginator="true"
+                     rows="10"
+                     paginatorPosition="bottom"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} 
+                     {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                     rowsPerPageTemplate="10,20,30"
+                     selectionMode="multiple"
+                     selection="#{consultasMB.medicamentosSeleccionados}"
+                     rowKey="#{receta.idMedicamento.id}">
+            <p:column headerText="#{msg['consultas.lbl.medicamento']}">
+                <h:outputText value="#{receta.idMedicamento.nombre}"/>
+            </p:column>
+            <p:column headerText="#{msg['consultas.lbl.presentacion']}">
+                <h:outputText value="#{receta.idMedicamento.presentacion.descripcion}"/>
+            </p:column>
+            <p:column headerText="#{msg['consultas.lbl.dosis']}">
+                <h:outputText value="#{receta.dosis}"/>
+            </p:column>
+            <p:column headerText="#{msg['consultas.lbl.horario']}">
+                <h:outputText value="#{receta.horario}"/>
+            </p:column>
+            <p:column headerText="#{msg['consultas.lbl.duracion']}">
+                <h:outputText value="#{receta.duracion}"/>
+            </p:column>
+            <p:column headerText="#{msg['consultas.lbl.recomendaciones']}">
+                <h:outputText value="#{receta.recomendaciones}"/>
+            </p:column>
+        </p:dataTable>
+    </h:panelGrid>
+    <h:panelGroup id="panelVistaPrevia">
+        <p:commandButton id="descargaReceta"
+                         value=""
+                         ajax="false"
+                         style="visibility: hidden;">
+            <p:fileDownload value="#{consultasMB.recetaExportada}"/>
+        </p:commandButton>
+        <script type="text/javascript">
+            function validarDescarga() {
+                var exportado = #{not empty consultasMB.recetaExportada};
+                if (exportado) {
+                    document.getElementById('tvConsultas:descargaReceta').click();
+                }
+            }
+        </script>
+    </h:panelGroup>
+</ui:composition>

@@ -1,0 +1,166 @@
+.ui-widget, .ui-widget .ui-widget {
+	font-family:"Trebuchet MS", Helvetica, sans-serif !important;
+   font-size: 12px !important;
+}
+
+.divPrincipal{
+	width: 100%;
+	height:100%;
+}
+
+.menu{
+	width: 200px;
+	height:100%;
+}
+
+.encabezado{
+	width: 100%;
+	height:20%;
+	margin-bottom:5px;
+}
+
+.contenido{
+	width: 100%;
+	height: 100%;
+}
+
+.piePagina{
+	width: 100%;
+	height:20%;
+}
+
+div.fileUploadClass div label span.ui-button-text {
+    border: none;
+}
+
+div.fileUploadClass div label{
+    width: 180px;
+    height: 25px;
+    outline: none !important;
+    border: none !important;
+}
+
+div.fileUploadClass div label:hover{
+    cursor: pointer !important;
+    outline: none !important;
+    border: none !important;
+}
+
+div.fileUploadClass div label {
+    border: none !important;
+}
+
+div.fileUploadClass div label.ui-state-active {
+    background: transparent;
+}
+
+div.fileUploadClass div table.files {
+    display: none;
+}
+
+div.fileUploadClass div.ui-widget-header {
+    border: 0px;
+    background: transparent;
+    color: #ffffff;
+}
+
+div.fileUploadClass div.ui-widget-content {
+    border: 0px;
+    background: #f7f7f7 url(images/ui-bg_flat_75_f7f7f7_40x100.png) 50% 50% repeat-x;
+}
+
+.fileUploadClass {
+    padding-bottom: 0px;
+}
+
+.fileUploadBorder {   
+    border-width: 0 0 0 0 !important;    
+}
+
+.fileUploadWidth {
+    width: 190px;
+}
+
+
+
+.ui-blockui{
+    width: 0px !important;
+    height: 0px !important;
+    position:absolute;
+    top:0;
+    left:0;
+    text-align:center;
+}
+
+.alineacionTop{
+    vertical-align: top;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+	background-image: linear-gradient(to bottom, rgba(102, 102, 102, 0.9), rgba(192, 192, 192, 0.84)) !important;
+}
+
+.ui-menuitem-link.ui-state-hover {
+	background-image: linear-gradient(to bottom, rgb(102, 102, 102), rgb(192, 192, 192)) !important;
+	background-color: rgb(188, 196, 201) !important;
+}
+.textoDerecha {
+    text-align: right;
+}
+
+.textoIzquierda {
+    text-align: left;
+}
+
+.capturaEtiquetas {
+    width: 150px !important;
+    text-align: right;
+}
+.certificadoTexto {
+    width: 410px;
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+    line-height: 18px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    color: #000;
+    font-weight: normal;
+    border: 0px none;
+}
+
+.ui-tabs-selected a {
+    background: rgba(182, 180, 180, 0.55) !important;
+}
+
+.ui-inputfield.ui-state-focus, .ui-widget-content .ui-inputfield.ui-state-focus, .ui-widget-header .ui-inputfield.ui-state-focus {
+    -moz-box-shadow: 0px 0px 5px #BCED91, inset 0 2px 2px #BCED91;
+    -webkit-box-shadow: 0px 0px 5px #BCED91, inset 0 2px 2px #BCED91;
+    box-shadow: 0px 0px 5px #BCED91, inset 0 2px 2px #BCED91;
+}
+.ui-state-disabled {
+   -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";   //on ie the opacity remains the same
+   filter: Alpha(Opacity=100) !important;   
+   opacity: 100 !important;
+   box-shadow:none !important;
+   color: rgba(75, 70, 70, 0.66) !important;
+}
+
+.alineacionMiddle{
+    vertical-align: middle;
+}
+
+.textAreaCaptura {
+    width: 300px;
+    height: 150px;
+}
+
+.textAreaGO {
+    width: 150px;
+    height: 200px;
+}
+
+.textAreaMotivo {
+    width: 300px;
+    height: 50px;
+}

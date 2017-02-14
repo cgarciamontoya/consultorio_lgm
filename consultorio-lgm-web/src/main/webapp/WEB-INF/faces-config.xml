@@ -1,0 +1,45 @@
+<faces-config version="2.2" 
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee	 
+	http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"	>
+    <application>
+        <el-resolver>
+        	org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+        <locale-config>
+			<default-locale>es_MX</default-locale>
+			<supported-locale>en_US</supported-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>mensajes</base-name>
+			<var>msg</var>
+		</resource-bundle>
+    </application>
+    
+    <behavior>
+        <behavior-id>org.primefaces.component.AjaxBehavior</behavior-id>
+        <behavior-class>org.primefaces.component.behavior.ajax.AjaxBehavior</behavior-class>
+    </behavior>
+
+    <render-kit>
+        <client-behavior-renderer>
+            <client-behavior-renderer-type>org.primefaces.component.AjaxBehaviorRenderer</client-behavior-renderer-type>
+            <client-behavior-renderer-class>org.primefaces.component.behavior.ajax.AjaxBehaviorRenderer</client-behavior-renderer-class>
+        </client-behavior-renderer>
+    </render-kit>   
+    
+    <protected-views>
+    	<url-pattern>/web-pages/error/acceso-denegado.xhtml</url-pattern>
+    	<url-pattern>/web-pages/error/recurso-no-encontrado.xhtml</url-pattern>
+    	<url-pattern>/web-pages/general/inicio.xhtml</url-pattern>
+    	<url-pattern>/web-pages/general/seguridad/usuarios.xhtml</url-pattern>
+    	<url-pattern>/index.jsp</url-pattern>
+      <url-pattern>/web-pages/general/seguridad/cambio_password.xhtml</url-pattern>
+      
+    </protected-views>
+    
+    <factory>
+	  <exception-handler-factory>org.primefaces.extensions.component.ajaxerrorhandler.AjaxExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+</faces-config>

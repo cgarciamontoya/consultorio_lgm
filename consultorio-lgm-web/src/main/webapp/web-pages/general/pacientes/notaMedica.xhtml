@@ -1,0 +1,135 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+<h:panelGrid id="pnlMotivoConsulta">
+        <h:panelGrid columns="4"
+                     columnClasses="textoDerecha alineacionTop, textoIzquierda alineacionTop, textoDerecha alineacionTop, textoIzquierda alineacionTop">
+            <!-- Renglon 1 -->
+            <p:outputLabel value="#{msg['consultas.lbl.fecha']}" />
+            <p:inputText value="#{historiaClinicaMB.notaMedica.fecha}"
+                         disabled="true">
+                <c:convertDateTime type="date"
+                                   dateStyle="short"
+                                   pattern="dd/MM/yyyy"/>
+            </p:inputText>
+            <h:panelGroup>
+            <p:outputLabel value="*" style="color: red;"/>
+            <p:spacer width="2px" height="1px"/>
+            <p:outputLabel for="txtMotivoConsulta" value="#{msg['consultas.lbl.motivoConsulta']}" />
+            </h:panelGroup>
+            <p:inputTextarea id="txtMotivoConsulta"
+                             value="#{historiaClinicaMB.notaMedica.motivoConsulta}"
+                             maxlength="500"
+                             styleClass="textAreaMotivo"
+                             disabled="true"/>
+            <!-- Fin Renglon 1 -->
+            <!-- Renglon 2 -->
+            <p:outputLabel value="#{msg['consultas.lbl.peso']}"
+                           for="txtPeso"/>
+            <h:panelGroup>
+            <p:inputText id="txtPeso"
+                         value="#{historiaClinicaMB.notaMedica.peso}"
+                         style="width: 70px;"
+                         disabled="true"/>
+            <p:outputLabel value="#{msg['consultas.lbl.kg']}"/>
+            </h:panelGroup>
+            <p:outputLabel value="#{msg['consultas.lbl.talla']}"
+                           for="txtTalla"/>
+            <h:panelGroup>
+            <p:inputText id="txtTalla"
+                         value="#{historiaClinicaMB.notaMedica.talla}"
+                         style="width: 70px"
+                         disabled="true"/>
+            <p:outputLabel value="#{msg['consultas.lbl.mts']}"/>
+            </h:panelGroup>
+            <!-- Fin Renglon 2 -->
+            <!-- Renglon 3 -->
+            <p:outputLabel value="#{msg['consultas.lbl.fc']}"
+                           for="txtFC"/>
+            <h:panelGroup>
+            <p:inputText id="txtFC"
+                         value="#{historiaClinicaMB.notaMedica.frecuenciaCardiaca}"
+                         disabled="true"/>
+            <p:outputLabel value="#{msg['consultas.lbl.ppm']}"/>
+            </h:panelGroup>
+            <p:outputLabel value="#{msg['consultas.lbl.fr']}"
+                           for="txtFR"/>
+            <h:panelGroup>
+            <p:inputText id="txtFR"
+                         value="#{historiaClinicaMB.notaMedica.frecuenciaRespiratoria}"
+                         disabled="true"/>
+            <p:outputLabel value="#{msg['consultas.lbl.rpm']}"/>
+            </h:panelGroup>
+            <!-- Fin Renglon 3 -->
+            <!-- Renglon 4 -->
+            <p:outputLabel value="#{msg['consultas.lbl.ta']}"/>
+            <h:panelGroup>
+            <p:inputText id="txtTAS"
+                         value="#{historiaClinicaMB.notaMedica.taSistolica}"
+                         style="width: 20px;"
+                         disabled="true"/>
+            <p:outputLabel value=" / "/>
+            <p:inputText id="txtTAD"
+                         value="#{historiaClinicaMB.notaMedica.taDiastolica}"
+                         style="width: 20px"
+                         disabled="true"/>
+            </h:panelGroup>
+            <p:outputLabel value="#{msg['consultas.lbl.temperatura']}"
+                           for="txtTemperatura"/>
+            <h:panelGroup>
+            <p:inputText id="txtTemperatura"
+                         value="#{historiaClinicaMB.notaMedica.temperatura}"
+                         disabled="true"/>
+            <p:outputLabel value="#{msg['consultas.lbl.grados']}"/>
+            </h:panelGroup>
+            <!-- Fin Renglon 4 -->
+            <!-- Renglon 5 -->
+            <p:outputLabel value="#{msg['consultas.lbl.glucosa']}"
+                           for="txtGlucosa"/>
+            <h:panelGroup>
+            <p:inputText id="txtGlucosa"
+                         value="#{historiaClinicaMB.notaMedica.glucosa}"
+                         disabled="true"/>
+            <p:outputLabel value="#{msg['consultas.lbl.mgdl']}"/>
+            </h:panelGroup>
+            <p:spacer width="1px" height="1px"/>
+            <p:spacer width="1px" height="1px"/>
+            
+            <!-- Fin Renglon 5 -->
+            <!-- Renglon 6 -->
+            <p:outputLabel value="#{msg['consultas.lbl.exploracionFisica']}"
+                           for="txtExploracionFisica"/>
+            <p:inputTextarea id="txtExploracionFisica"
+                             value="#{historiaClinicaMB.notaMedica.exploracionFisica}"
+                             maxlength="500"
+                             styleClass="textAreaCaptura"
+                             disabled="true"/>
+            <p:outputLabel value="#{msg['consultas.lbl.laboratoriosGabinete']}"
+                           for="txtLabGab"/>
+            <p:inputTextarea id="txtLabGab"
+                             value="#{historiaClinicaMB.notaMedica.laboratorioGabinete}"
+                             maxlength="500"
+                             styleClass="textAreaCaptura"
+                             disabled="true"/>
+            <p:outputLabel value="#{msg['consultas.lbl.diagnostico']}"
+                           for="txtDiagnostico"/>
+            <p:inputTextarea id="txtDiagnostico"
+                             value="#{historiaClinicaMB.notaMedica.diagnostico}"
+                             maxlength="500"
+                             styleClass="textAreaCaptura"
+                             disabled="true"/>
+            <p:outputLabel value="#{msg['consultas.lbl.plan']}"
+                           for="txtPlan"/>
+            <p:inputTextarea id="txtPlan"
+                             value="#{historiaClinicaMB.notaMedica.plan}"
+                             maxlength="500"
+                             styleClass="textAreaCaptura"
+                             disabled="true"/>
+            <!-- Fin Renglon 6 -->
+        </h:panelGrid>
+    </h:panelGrid>
+
+</ui:composition>

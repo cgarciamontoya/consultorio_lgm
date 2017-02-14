@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<!--h:outputStylesheet name="css-maestro.css" library="css" /-->
+
+	<link type="text/css" rel="stylesheet"
+		href="#{request.contextPath}/scb-theme/skin.css" />
+	<title>LGM - Login</title>
+</h:head>
+<h:body>
+
+	<style type="text/css">
+        .ui-widget{font-size:90% !important;}
+        .ui-layout-unit-content{border:0px; background:transparent;}
+        .custom_ui-layout-unit-content{}
+    </style>
+    
+    <!--style type="text/css">
+        .ui-widget{font-size:90% !important;}
+        .ui-layout-unit-content{border:0px; background:transparent;}
+        .custom_ui-layout-unit-content{border:0px; background-image:url('#{request.contextPath}/img/background-header.jpeg');}
+    </style-->
+    
+	<p:layout fullPage="true">
+		<p:layoutUnit styleClass="custom_ui-layout-unit-content" position="north" size="110" resizable="false" closable="false" collapsible="false" >
+			<p:layout style="border:0px; background-color:transparent;">
+				<p:layoutUnit position="west" style="border:0px; background:transparent;">
+                                        <p:graphicImage value="/img/logomedicina.jpg" width="70%" height="90%"
+                                                        style="vertical-align: middle;"/>
+				</p:layoutUnit>
+				<p:layoutUnit position="center" style="border:0px; background:transparent;">
+                                    <p:graphicImage value="/img/logotitulo.png" width="90%" height="90%" style="vertical-align: middle;"/>
+				</p:layoutUnit>
+				<p:layoutUnit position="east" style="border:0px; background:transparent;">
+					<p:graphicImage value="/img/logouaz.jpg" width="70%" height="90%" style="vertical-align: middle;"/>
+				</p:layoutUnit>
+			</p:layout>
+		</p:layoutUnit>		
+		<p:layoutUnit position="center" style="border:0px;">
+			<table style="width: 100%;">
+				<tr style="height: 100px;">
+				</tr>
+				<tr>
+					<td style="width: 100%;" align="center">
+						<form action="#{request.contextPath}/j_spring_security_check"
+							method="post">
+							<h:form prependId="false">
+								<h:messages layout='table' globalOnly='true' />
+								
+								<p:fieldset style="width: 350px; height: 150px; align: left;">
+
+									<table style="height: 100%; width: 100%;">
+										<tr style="height: 20px;"><td></td></tr>
+										<tr>
+											<td><h:outputLabel value='Usuario: ' /></td>
+											<td><p:inputText type='text' id='j_username' required="true" requiredMessage="Debe especificar el usuario." autocomplete="off" maxlength="20"/>
+											</td>
+										</tr>
+										<tr>
+											<td><h:outputLabel value='Password: ' /></td>
+											<td><p:password id='j_password' required="true" requiredMessage="Debe especificar el password." autocomplete="off" maxlength="20"/></td>
+										</tr>	
+										<tr style="height: 10px;"><td></td></tr>									
+									</table>
+									<p:commandButton id="acept" value="Aceptar" actionListener="#{aceptar}" ajax="false" />
+									<p:outputLabel value="#{loginMB.error}" />
+								</p:fieldset>
+								<p:growl id="mensajes"/>  
+							</h:form>
+						</form>
+					</td>
+				</tr>
+			</table>
+		</p:layoutUnit>
+
+	</p:layout>
+</h:body>
+
+</html>

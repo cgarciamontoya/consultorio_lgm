@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel>
+<schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<database name="consultorio_lgm">
+</database>
+
+<table name="paciente">
+	<schema name="public"/>
+	<position x="70" y="213"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="apellido_paterno" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="apellido_materno">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="genero_femenino" not-null="true" default-value="false">
+		<type name="boolean"/>
+	</column>
+	<column name="edad" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="direccion" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="telefono">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="religion">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="id_escolaridad" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_estado_civil" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_antecedentes" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="id_antecedentes_ginecologicos">
+		<type name="bigint"/>
+	</column>
+	<column name="fecha_nacimiento">
+		<type name="date"/>
+	</column>
+	<constraint name="pk_paciente" type="pk-constr" factor="10" table="public.paciente">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="cat_escolaridad">
+	<schema name="public"/>
+	<position x="23" y="14"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="pk_catescolaridad" type="pk-constr" factor="10" table="public.cat_escolaridad">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="cat_estado_civil">
+	<schema name="public"/>
+	<position x="259" y="19"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="pk_catedocivil" type="pk-constr" factor="10" table="public.cat_estado_civil">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="antecedentes_generales">
+	<schema name="public"/>
+	<position x="462" y="214"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="carga_genetica_paternal">
+		<type name="text"/>
+	</column>
+	<column name="carga_genetica_maternal">
+		<type name="text"/>
+	</column>
+	<column name="vivienda">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="alimentacion">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="higiene">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="toxicomanias">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="quirurgicas">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="hospitalizaciones" default-value="false">
+		<type name="boolean"/>
+	</column>
+	<column name="motivo_hospitalizacion">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="transfuciones" default-value="false">
+		<type name="boolean"/>
+	</column>
+	<column name="motivo_transfuciones">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="traumaticas" default-value="false">
+		<type name="boolean"/>
+	</column>
+	<column name="motivo_traumaticas">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="alergias">
+		<type name="boolean"/>
+	</column>
+	<column name="descripcion_alergias">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="id_grupo_sanguineo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="rh_positivo" default-value="true">
+		<type name="boolean"/>
+	</column>
+	<constraint name="pk_antecedentes" type="pk-constr" factor="10" table="public.antecedentes_generales">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="cat_enfermedades_cronicas">
+	<schema name="public"/>
+	<position x="834" y="46"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="pk_cat_enf_cronicas" type="pk-constr" factor="10" table="public.cat_enfermedades_cronicas">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="rel_antecedentes_enfermedades">
+	<schema name="public"/>
+	<position x="505" y="58"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="id_antecedentes" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="id_enfermedad" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="pk_rel_antecedentes_enfermedades" type="pk-constr" factor="10" table="public.rel_antecedentes_enfermedades">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="cat_grupo_sanguineo">
+	<schema name="public"/>
+	<position x="849" y="207"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="2"/>
+	</column>
+	<constraint name="pk_cat_gpo_sanguineo" type="pk-constr" factor="10" table="public.cat_grupo_sanguineo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="antecedentes_ginecologicos">
+	<schema name="public"/>
+	<position x="461" y="540"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="menarca">
+		<type name="integer"/>
+	</column>
+	<column name="ciclo_menstrual_regular" default-value="true">
+		<type name="boolean"/>
+	</column>
+	<column name="duracion_ciclo_menstrual">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="ivsa">
+		<type name="integer"/>
+	</column>
+	<column name="numero_parejas">
+		<type name="integer"/>
+	</column>
+	<column name="id_cat_mpf">
+		<type name="integer"/>
+	</column>
+	<column name="exploracion_mama">
+		<type name="boolean"/>
+	</column>
+	<column name="papanicolaou">
+		<type name="boolean"/>
+	</column>
+	<column name="resultado_papanicolaou">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="gesta">
+		<type name="smallint"/>
+	</column>
+	<column name="parto">
+		<type name="smallint"/>
+	</column>
+	<column name="abortos">
+		<type name="smallint"/>
+	</column>
+	<column name="cesarea">
+		<type name="smallint"/>
+	</column>
+	<column name="fecha_ultima_menstruacion">
+		<type name="date"/>
+	</column>
+	<column name="fecha_probable_parto">
+		<type name="date"/>
+	</column>
+	<column name="complicaciones_embarazo">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="motivo_consulta">
+		<type name="varchar" length="500"/>
+	</column>
+	<constraint name="pk_antecedentes_ginecologicos" type="pk-constr" factor="10" table="public.antecedentes_ginecologicos">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="cat_mpf">
+	<schema name="public"/>
+	<position x="811" y="539"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="pk_cat_mpf" type="pk-constr" factor="10" table="public.cat_mpf">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="consulta">
+	<schema name="public"/>
+	<position x="98" y="503"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="motivo_consulta" not-null="true">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="fecha" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="id_paciente" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="peso">
+		<type name="float"/>
+	</column>
+	<column name="ta_sistolica">
+		<type name="integer"/>
+	</column>
+	<column name="ta_diastolica">
+		<type name="integer"/>
+	</column>
+	<column name="diagnostico" not-null="true">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="talla">
+		<type name="float"/>
+	</column>
+	<column name="frecuencia_cardiaca">
+		<type name="integer"/>
+	</column>
+	<column name="frecuencia_respiratoria">
+		<type name="integer"/>
+	</column>
+	<column name="glucosa">
+		<type name="float"/>
+	</column>
+	<column name="exploracion_fisica">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="laboratorio_gabinete">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="plan">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="proxima_cita">
+		<type name="date"/>
+	</column>
+	<column name="temperatura">
+		<type name="float"/>
+	</column>
+	<constraint name="pk_consulta" type="pk-constr" factor="10" table="public.consulta">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tratamiento">
+	<schema name="public"/>
+	<position x="117" y="800"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="id_consulta" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="id_medicamento" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="dosis" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="horario" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="duracion" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="recomendaciones">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="pk_tratamiento" type="pk-constr" factor="10" table="public.tratamiento">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="medicamento">
+	<schema name="public"/>
+	<position x="114" y="945"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="presentacion" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="antibiotico" not-null="true">
+		<type name="boolean"/>
+	</column>
+	<constraint name="pk_medicamento" type="pk-constr" factor="10" table="public.medicamento">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="cat_presentacion">
+	<schema name="public"/>
+	<position x="477" y="894"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<constraint name="pk_catpresentacion" type="pk-constr" factor="10" table="public.cat_presentacion">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="usuario">
+	<schema name="public"/>
+	<position x="861" y="715"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="usuario" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="contrasena" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="apellidopaterno" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="apellidomaterno">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="iniciales">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="correo">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="pk_usuario" type="pk-constr" factor="10" table="public.usuario">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="configuracion">
+	<schema name="public"/>
+	<position x="819" y="929"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="parametro" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="valor" not-null="true">
+		<type name="varchar" length="500"/>
+	</column>
+	<constraint name="pk_configuracion" type="pk-constr" factor="10" table="public.configuracion">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="fk_paciente_escolaridad" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.cat_escolaridad" table="public.paciente">
+	<columns names="id_escolaridad" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_paciente_edocivil" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.cat_estado_civil" table="public.paciente">
+	<columns names="id_estado_civil" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_paciente_antecedentes" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.antecedentes_generales" table="public.paciente">
+	<columns names="id_antecedentes" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_paciente_ginecologicos" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.antecedentes_ginecologicos" table="public.paciente">
+	<columns names="id_antecedentes_ginecologicos" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_cat_gpo_sanguineo" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.cat_grupo_sanguineo" table="public.antecedentes_generales">
+	<columns names="id_grupo_sanguineo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_rel_antecedentes" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.antecedentes_generales" table="public.rel_antecedentes_enfermedades">
+	<columns names="id_antecedentes" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_rel_enfermedades" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.cat_enfermedades_cronicas" table="public.rel_antecedentes_enfermedades">
+	<columns names="id_enfermedad" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_ago_catmpf" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.cat_mpf" table="public.antecedentes_ginecologicos">
+	<columns names="id_cat_mpf" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_consulta_paciente" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.paciente" table="public.consulta">
+	<columns names="id_paciente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_tratamiento_consulta" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.consulta" table="public.tratamiento">
+	<columns names="id_consulta" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_tratamiento_medicamento" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.medicamento" table="public.tratamiento">
+	<columns names="id_medicamento" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="fk_medicamento_presentacion" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.cat_presentacion" table="public.medicamento">
+	<columns names="presentacion" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<relationship name="rel_paciente_cat_escolaridad" type="relfk"
+	 src-table="public.paciente"
+	 dst-table="public.cat_escolaridad"
+	 src-required="true" dst-required="true">
+	<label ref-type="name-label">
+		<position x="-23.0243" y="-95.7985"/>
+	</label>
+</relationship>
+
+<relationship name="rel_paciente_cat_estado_civil" type="relfk"
+	 src-table="public.paciente"
+	 dst-table="public.cat_estado_civil"
+	 src-required="true" dst-required="true">
+	<label ref-type="src-label">
+		<position x="91.3985" y="-59.2"/>
+	</label>
+	<label ref-type="name-label">
+		<position x="62.4757" y="-94.2985"/>
+	</label>
+</relationship>
+
+<relationship name="rel_rel_antecedentes_enfermedades_antecedentes_generales" type="relfk"
+	 src-table="public.rel_antecedentes_enfermedades"
+	 dst-table="public.antecedentes_generales"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_rel_antecedentes_enfermedades_cat_enfermedades_cronicas" type="relfk"
+	 src-table="public.rel_antecedentes_enfermedades"
+	 dst-table="public.cat_enfermedades_cronicas"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_paciente_antecedentes_generales" type="relfk"
+	 src-table="public.paciente"
+	 dst-table="public.antecedentes_generales"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_antecedentes_generales_cat_grupo_sanguineo" type="relfk"
+	 src-table="public.antecedentes_generales"
+	 dst-table="public.cat_grupo_sanguineo"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_antecedentes_ginecologicos_cat_mpf" type="relfk"
+	 src-table="public.antecedentes_ginecologicos"
+	 dst-table="public.cat_mpf"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_paciente_antecedentes_ginecologicos" type="relfk"
+	 src-table="public.paciente"
+	 dst-table="public.antecedentes_ginecologicos"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_consulta_paciente" type="relfk"
+	 src-table="public.consulta"
+	 dst-table="public.paciente"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_tratamiento_consulta" type="relfk"
+	 src-table="public.tratamiento"
+	 dst-table="public.consulta"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_tratamiento_medicamento" type="relfk"
+	 src-table="public.tratamiento"
+	 dst-table="public.medicamento"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_medicamento_cat_presentacion" type="relfk"
+	 src-table="public.medicamento"
+	 dst-table="public.cat_presentacion"
+	 src-required="true" dst-required="true"/>
+
+</dbmodel>

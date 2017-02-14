@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:panelGrid id="pnlAntecedesPP">
+        <h:panelGrid columns="4"
+                     columnClasses="textoDerecha, textoIzquierda, textoDerecha, textoIzquierda">
+            <p:outputLabel value="#{msg['antecedentesPP.lbl.enfermedadesCronicas']}"
+                           for="txtEnfCronicas"/>
+            <p:selectManyMenu id="txtEnfCronicas"
+                              value="#{historiaClinicaMB.idsEnfCronicas}">
+                <c:selectItems value="#{historiaClinicaMB.listaEnfermedadesCronicas}"
+                               var="enfCronicas"
+                               itemLabel="#{enfCronicas.nombre}"
+                               itemValue="#{enfCronicas.id}"/>
+            </p:selectManyMenu>
+            
+            <p:outputLabel value="#{msg['antecedentesPP.lbl.quirurgicas']}"
+                           for="txtQuirurgicas"/>
+            <p:inputTextarea id="txtQuirurgicas"
+                             value="#{historiaClinicaMB.paciente.idAntecedentes.quirurgicas}"
+                             maxlength="500"
+                             styleClass="textAreaCaptura"/>
+            <h:panelGroup>
+                <p:outputLabel value="#{msg['antecedentesPP.lbl.hospitalizaciones']}"
+                               for="chkHospitalizaciones"/>
+                <p:spacer width="5px" height="1px"/>
+                <p:selectBooleanCheckbox id="chkHospitalizaciones"
+                                         value="#{historiaClinicaMB.paciente.idAntecedentes.hospitalizaciones}">
+                    <p:ajax event="change"
+                            update="txtHospitalizaciones"/>
+                </p:selectBooleanCheckbox>
+            </h:panelGroup>
+            <p:inputTextarea id="txtHospitalizaciones"
+                             value="#{historiaClinicaMB.paciente.idAntecedentes.motivoHospitalizacion}"
+                             maxlength="500"
+                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.hospitalizaciones}"
+                             styleClass="textAreaCaptura"/>
+            
+            <h:panelGroup>
+                <p:outputLabel value="#{msg['antecedentesPP.lbl.transfusiones']}"
+                               for="chkTransfusiones"/>
+                <p:spacer width="5px" height="1px"/>
+                <p:selectBooleanCheckbox id="chkTransfusiones"
+                                         value="#{historiaClinicaMB.paciente.idAntecedentes.transfuciones}">
+                    <p:ajax event="change"
+                            update="txtTransfusiones"/>
+                </p:selectBooleanCheckbox>
+            </h:panelGroup>
+            <p:inputTextarea id="txtTransfusiones"
+                             value="#{historiaClinicaMB.paciente.idAntecedentes.motivoTransfuciones}"
+                             maxlength="500"
+                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.transfuciones}"
+                             styleClass="textAreaCaptura"/>
+            
+            <h:panelGroup>
+                <p:outputLabel value="#{msg['antecedentesPP.lbl.traumaticos']}"
+                               for="chkTraumaticos"/>
+                <p:spacer width="5px" height="1px"/>
+                <p:selectBooleanCheckbox id="chkTraumaticos"
+                                         value="#{historiaClinicaMB.paciente.idAntecedentes.traumaticas}">
+                    <p:ajax event="change"
+                            update="txtTraumaticos"/>
+                </p:selectBooleanCheckbox>
+            </h:panelGroup>
+            <p:inputTextarea id="txtTraumaticos"
+                             value="#{historiaClinicaMB.paciente.idAntecedentes.motivoTraumaticas}"
+                             maxlength="500"
+                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.traumaticas}"
+                             styleClass="textAreaCaptura"/>
+            
+            <h:panelGroup>
+                <p:outputLabel value="#{msg['antecedentesPP.lbl.alergias']}"
+                               for="chkAlergias"/>
+                <p:spacer width="5px" height="1px"/>
+                <p:selectBooleanCheckbox id="chkAlergias"
+                                         value="#{historiaClinicaMB.paciente.idAntecedentes.alergias}">
+                    <p:ajax event="change"
+                            update="txtAlergias"/>
+                </p:selectBooleanCheckbox>
+            </h:panelGroup>
+            <p:inputTextarea id="txtAlergias"
+                             value="#{historiaClinicaMB.paciente.idAntecedentes.descripcionAlergias}"
+                             maxlength="500"
+                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.alergias}"
+                             styleClass="textAreaCaptura"/>
+            <h:panelGroup>
+                <p:outputLabel value="*" style="color: red;"/>
+                <p:spacer width="2px" height="1px"/>
+                <p:outputLabel value="#{msg['antecedentesPP.lbl.grupoSanguineo']}"/>
+            </h:panelGroup>
+            
+            <h:panelGrid columns="3">
+                <p:selectOneMenu id="cboGpoSanguineo"
+                                 value="#{historiaClinicaMB.paciente.idAntecedentes.idGrupoSanguineo.id}">
+                    <c:selectItem itemLabel="#{msg['general.lbl.seleccione']}"/>
+                    <c:selectItems value="#{historiaClinicaMB.listaGrupoSanguineo}"
+                                   var="gpoSanguineo"
+                                   itemLabel="#{gpoSanguineo.nombre}"
+                                   itemValue="#{gpoSanguineo.id}"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="#{msg['antecedentesPP.lbl.rhPositivo']}"/>
+                <p:selectBooleanCheckbox value="#{historiaClinicaMB.paciente.idAntecedentes.rhPositivo}"/>
+            </h:panelGrid>
+        </h:panelGrid>
+    </h:panelGrid>
+
+</ui:composition>

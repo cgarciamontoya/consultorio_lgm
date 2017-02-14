@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0"
+                 xmlns="http://java.sun.com/xml/ns/persistence/orm" 
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+
+    <!--  Queries para la entidad Usuario -->
+    <named-query name="Usuario.recuperarTodos">
+        <query>
+            Select u From Usuario u
+        </query>
+    </named-query>
+    <named-query name="Usuario.recuperarPorId">
+        <query>
+            Select u From Usuario u Where u.idUsuario=:id
+        </query>
+    </named-query>
+    <named-query name="Usuario.recuperarPorUsuario">
+        <query>
+            Select u From Usuario u Where u.usuario = :usuario
+        </query>
+    </named-query>
+    
+    <named-query name="CatEnfermedadesCronicas.recuperaPorFiltro">
+        <query>
+            Select c From CatEnfermedadesCronicas c Where LOWER(c.nombre) Like LOWER(:nombre)
+        </query>
+    </named-query>
+    
+    <named-query name="CatEnfermedadesCronicas.recuperaPorNombre">
+        <query>
+            Select c From CatEnfermedadesCronicas c Where c.nombre = :nombre
+        </query>
+    </named-query>
+    
+    <named-query name="CatMpf.recuperaPorFiltro">
+        <query>
+            Select c From CatMpf c Where LOWER(c.nombre) Like LOWER(:nombre)
+        </query>
+    </named-query>
+    
+    <named-query name="CatMpf.recuperaPorNombre">
+        <query>
+            Select c From CatMpf c Where c.nombre = :nombre
+        </query>
+    </named-query>
+    
+    <named-query name="Medicamento.recuperaPorNombre">
+        <query>
+            Select m From Medicamento m Where m.nombre = :nombre
+            And m.antibiotico = :antibiotico
+            And m.presentacion.id = :idPresentacion
+        </query>
+    </named-query>
+    
+    <named-query name="Medicamento.recuperaPorNombreComplete">
+        <query>
+            Select m From Medicamento m Where LOWER(m.nombre) LIKE LOWER(:nombre)
+        </query>
+    </named-query>
+    
+    <named-query name="Paciente.recuperaPorFiltro">
+        <query>
+            Select p From Paciente p
+            Where (LOWER(p.nombre) LIKE LOWER(:nombre) Or :nombre = '')
+            And (LOWER(p.apellidoPaterno) LIKE LOWER(:paterno) Or :paterno = '')
+            And (LOWER(p.apellidoMaterno) LIKE LOWER(:materno) Or :materno = '')
+        </query>
+    </named-query>
+    
+    <named-query name="Paciente.existePaciente">
+        <query>
+            Select Count(p) > 0 From Paciente p
+            Where p.nombre = :nombre
+            And p.apellidoPaterno = :paterno
+            And p.apellidoMaterno = :materno
+            And p.fechaNacimiento = :fechaNacimiento
+        </query>
+    </named-query>
+    
+    <named-query name="RelAntecedentesEnfermedades.recuperaRelacionesPaciente">
+        <query>
+            Select r From RelAntecedentesEnfermedades r Where r.idAntecedentes.id = :idAntecedentes
+        </query>
+    </named-query>
+    
+    <named-query name="Consultas.recuperaUltimaConsulta">
+        <query>
+            Select c From Consulta c Where c.id = (Select max(c2.id) From Consulta c2 Where c2.idPaciente = :idPaciente)
+        </query>
+    </named-query>
+    
+    <named-query name="Consultas.recuperarNotaMedica">
+        <query>
+            Select c From Consulta c Where c.id = (Select min(c2.id) From Consulta c2 Where c2.idPaciente.id = :idPaciente)
+        </query>
+    </named-query>
+    
+    <named-query name="Configuracion.consultarParametro">
+        <query>
+            Select c From Configuracion c Where c.parametro = :parametro
+        </query>
+    </named-query>
+	
+</entity-mappings>

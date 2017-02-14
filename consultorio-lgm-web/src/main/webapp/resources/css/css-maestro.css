@@ -1,0 +1,30 @@
+.ui-widget {
+   font-size: 12px !important;
+}
+
+.divPrincipal{
+	width: 100%;
+	height:100%;
+}
+
+.menu{
+	width: 200px;
+	height:100%;
+}
+
+.encabezado{
+	width: 100%;
+	height:20%;
+	margin-bottom:5px;
+}
+
+.contenido{
+	width: 100%;
+	height: 100%;
+}
+
+.piePagina{
+	width: 100%;
+	height:20%;
+}
+

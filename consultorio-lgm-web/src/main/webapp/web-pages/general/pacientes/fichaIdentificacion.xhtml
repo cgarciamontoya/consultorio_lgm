@@ -1,0 +1,166 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:panelGrid id="pnlFichaIdentificacion">
+        <h:panelGrid>
+            <p:row>
+                <p:column>
+                    <p:spacer width="42px" height="1px"/>
+                    <p:outputLabel value="*" style="color: red;"/>
+                    <p:spacer width="2px" height="1px"/>
+                    <p:outputLabel for="txtNombre" value="#{msg['fichaIdentificacion.lbl.nombre']}" />
+                </p:column>
+                <p:column>
+                    <p:inputText id="txtNombre"
+                                 value="#{historiaClinicaMB.paciente.nombre}"
+                                 size="50"
+                                 style="width: 200px;"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="*" style="color: red;"/>
+                    <p:spacer width="2px" height="1px"/>
+                    <p:outputLabel for="txtPaterno" value="#{msg['fichaIdentificacion.lbl.paterno']}" />
+                </p:column>
+                <p:column>
+                    <p:inputText id="txtPaterno"
+                                 value="#{historiaClinicaMB.paciente.apellidoPaterno}"
+                                 size="50"
+                                 style="width: 200px;"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="*" style="color: red;"/>
+                    <p:spacer width="2px" height="1px"/>
+                    <p:outputLabel for="txtMaterno" value="#{msg['fichaIdentificacion.lbl.materno']}" />
+                </p:column>
+                <p:column>
+                    <p:inputText id="txtMaterno"
+                                 value="#{historiaClinicaMB.paciente.apellidoMaterno}"
+                                 size="50"
+                                 style="width: 200px;"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:spacer width="45px" height="1px"/>
+                    <p:outputLabel value="*" style="color: red;"/>
+                    <p:spacer width="2px" height="1px"/>
+                    <p:outputLabel for="txtDireccion" value="#{msg['fichaIdentificacion.lbl.direccion']}" />
+                </p:column>
+                <p:column colspan="3">
+                    <p:inputText id="txtDireccion"
+                                 value="#{historiaClinicaMB.paciente.direccion}"
+                                 size="255"
+                                 style="width: 510px;"/>
+                </p:column>
+                <p:column>
+                    <p:spacer width="50px" height="1px"/>
+                    <p:outputLabel for="txtTelefono" value="#{msg['fichaIdentificacion.lbl.telefono']}" />
+                </p:column>
+                <p:column>
+                    <p:inputText id="txtTelefono"
+                                 value="#{historiaClinicaMB.paciente.telefono}"
+                                 size="10"
+                                 style="width: 200px;"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:outputLabel value="*" style="color: red;"/>
+                    <p:spacer width="2px" height="1px"/>
+                    <p:outputLabel for="txtFechaNacimiento"
+                                   value="#{msg['fichaIdentificacion.lbl.fechaNacimiento']}"/>
+                </p:column>
+                <p:column>
+                    <p:calendar id="txtFechaNacimiento"
+                                value="#{historiaClinicaMB.paciente.fechaNacimiento}"
+                                pattern="dd/MM/yyyy"
+                                mode="popup"
+                                showOn="button"
+                                navigator="true">
+                        <p:ajax event="change"
+                                listener="#{historiaClinicaMB.calcularEdad}"
+                                update="txtEdad"/>
+                        <p:ajax event="dateSelect"
+                                listener="#{historiaClinicaMB.calcularEdad}"
+                                update="txtEdad"/>
+                    </p:calendar>
+                </p:column>
+                <p:column>
+                    <p:spacer width="125px" height="1px"/>
+                    <p:outputLabel value="*" style="color: red;"/>
+                    <p:spacer width="2px" height="1px"/>
+                    <p:outputLabel for="txtEdad"
+                                   value="#{msg['fichaIdentificacion.lbl.edad']}"/>
+                </p:column>
+                <p:column>
+                    <p:inputText id="txtEdad"
+                                 value="#{historiaClinicaMB.paciente.edad}"
+                                 size="2"
+                                 style="width: 20px;"/>
+                </p:column>
+                <p:column>
+                    <p:spacer width="230px" height="1px"/>
+                    <p:outputLabel for="chkFemenino"
+                                   value="#{msg['fichaIdentificacion.lbl.femenino']}"/>
+                </p:column>
+                <p:column>
+                    <p:selectBooleanCheckbox id="chkFemenino"
+                                             value="#{historiaClinicaMB.paciente.generoFemenino}"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:spacer width="38px" height="1px"/>
+                    <p:outputLabel value="*" style="color: red;"/>
+                    <p:outputLabel for="txtEscolaridad"
+                                   value="#{msg['fichaIdentificacion.lbl.escolaridad']}"/>
+                </p:column>
+                <p:column>
+                    <p:selectOneMenu id="txtEscolaridad"
+                                     value="#{historiaClinicaMB.paciente.idEscolaridad.id}"
+                                     styleClass="alineacionTop"
+                                     style="width: 200px;">
+                        <c:selectItem itemLabel="#{msg['general.lbl.seleccione']}"
+                                      itemValue="-1"/>
+                        <c:selectItems value="#{historiaClinicaMB.listaEscolaridad}"
+                                       var="escolaridad"
+                                       itemLabel="#{escolaridad.descripcion}"
+                                       itemValue="#{escolaridad.id}"/>
+                    </p:selectOneMenu>
+                </p:column>
+                <p:column>
+                    <p:spacer width="35px" height="1px"/>
+                    <p:outputLabel value="*" style="color: red;"/>
+                    <p:outputLabel for="txtEstadoCivil"
+                                   value="#{msg['fichaIdentificacion.lbl.estadoCivil']}"/>
+                </p:column>
+                <p:column>
+                    <p:selectOneMenu id="txtEstadoCivil"
+                                     value="#{historiaClinicaMB.paciente.idEstadoCivil.id}"
+                                     styleClass="alineacionTop"
+                                     style="width: 200px;">
+                        <c:selectItem itemLabel="#{msg['general.lbl.seleccione']}"/>
+                        <c:selectItems value="#{historiaClinicaMB.listaEstadoCivil}"
+                                       var="edoCivil"
+                                       itemLabel="#{edoCivil.descripcion}"
+                                       itemValue="#{edoCivil.id}"/>
+                    </p:selectOneMenu>
+                </p:column>
+                <p:column>
+                    <p:spacer width="70px" height="1px"/>
+                    <p:outputLabel for="txtReligion"
+                                   value="#{msg['fichaIdentificacion.lbl.religion']}"/>
+                </p:column>
+                <p:column>
+                    <p:inputText id="txtReligion"
+                                 value="#{historiaClinicaMB.paciente.religion}"
+                                 size="50"
+                                 style="width: 200px;"/>
+                </p:column>
+            </p:row>
+        </h:panelGrid>
+    </h:panelGrid>
+</ui:composition>

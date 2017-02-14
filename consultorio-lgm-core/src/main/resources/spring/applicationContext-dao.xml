@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+             	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+             	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-2.0.xsd">
+             	
+    <beans:bean id="usuarioDAO" class="consultorio.lgm.integracion.dao.impl.UsuarioDAOImpl" />
+    <beans:bean id="catEnfermedadesCronicasDAO" class="consultorio.lgm.integracion.dao.impl.CatEnfermedadesCronicasDAOImpl"/>
+    <beans:bean id="catMpfDAO" class="consultorio.lgm.integracion.dao.impl.CatMpfDAOImpl"/>
+    <beans:bean id="catEscolaridadDAO" class="consultorio.lgm.integracion.dao.impl.CatEscolaridadDAOImpl"/>
+    <beans:bean id="catEstadoCivilDAO" class="consultorio.lgm.integracion.dao.impl.CatEstadoCivilDAOImpl"/>
+    <beans:bean id="catGrupoSanguineoDAO" class="consultorio.lgm.integracion.dao.impl.CatGrupoSanguineoDAOImpl"/>
+    <beans:bean id="catPresentacionDAO" class="consultorio.lgm.integracion.dao.impl.CatPresentacionDAOImpl"/>
+    <beans:bean id="medicamentoDAO" class="consultorio.lgm.integracion.dao.impl.MedicamentoDAOImpl"/>
+    <beans:bean id="pacienteDAO" class="consultorio.lgm.integracion.dao.impl.PacienteDAOImpl"/>
+    <beans:bean id="relAntecedentesEnfermedadesDAO" class="consultorio.lgm.integracion.dao.impl.RelAntecedentesEnfermedadesDAOImpl"/>
+    <beans:bean id="consultaDAO" class="consultorio.lgm.integracion.dao.impl.ConsultasDAOImpl"/>
+    <beans:bean id="configuracionDAO" class="consultorio.lgm.integracion.dao.impl.ConfiguracionDAOImpl"/>
+</beans:beans>

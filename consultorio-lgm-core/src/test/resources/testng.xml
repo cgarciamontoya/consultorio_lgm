@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+  
+<suite verbose="1" name="TestSuiteDAO">
+  <test name="DAOS">
+    <classes>
+       <!-- Preuba que se lanzará manualmente cuando cuando se cumplan con los requisitos  -->
+       <!--  <class name="package.name.TestDAOFirmaCertificado"/>   -->
+       
+    </classes>
+  </test>
+  <test name="Servicios">
+  	<classes>
+  		
+  	</classes>
+  </test>
+  <test name="Integracion">
+      <classes>
+      
+      </classes>
+  </test>
+</suite>

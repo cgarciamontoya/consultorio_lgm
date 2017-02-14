@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+    <h:body>
+        <ui:composition template="/web-pages/templates/maestro/layout-maestro.xhtml">
+            <ui:define name="titulo">#{msg['consultas.lbl.titulo']}</ui:define>
+            <ui:define name="contenido">
+                <h:form id="consultasForm" prependId="false">
+                    <h:panelGroup id="pgFormaDatos"> 
+                        <div style="width: 550px; height: 100%; margin-left: auto; margin-right: auto;">
+                            <p:fieldset legend="#{msg['consultas.lbl.titulo']}" toggleable="true" toggleSpeed="500">  
+                                <p:growl id="mensajes" life="3000" />
+                                <h:panelGrid id="gridDatos" style="width: 500px;">
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msg['consultas.lbl.paciente']}" />
+                                            <p:spacer width="5px" height="1px"/>
+                                        </p:column> 
+                                        <p:column>
+                                            <h:outputText value="#{consultasMB.paciente.nombre}"/>
+                                            <p:spacer width="3px" height="1px"/>
+                                            <h:outputText value="#{consultasMB.paciente.apellidoPaterno}"/>
+                                            <p:spacer width="3px" height="1px"/>
+                                            <h:outputText value="#{consultasMB.paciente.apellidoMaterno}"/>
+                                        </p:column>
+                                    </p:row>
+                                </h:panelGrid> 
+                                <br /> 
+                                <p:toolbar id="toolDatosBotones">  
+                                    <p:toolbarGroup align="right"> 
+                                        <p:commandButton id="btnLimpiar"
+                                                         value="#{msg['boton.etiqueta.limpiar']}"
+                                                         title="#{msg['boton.etiqueta.limpiar']}"
+                                                         update="gridDatos mensajes pgFormaDatosGrid toolDatosBotones"
+                                                         icon="ui-icon-circle-close" 
+                                                         actionListener="#{consultasMB.limpiar}"
+                                                         rendered="#{empty consultasMB.consulta.id or consultasMB.consulta.id eq 0}"
+                                                         process="@this">
+                                            <p:resetInput target="gridDatos" />
+                                        </p:commandButton>
+                                        
+                                        <p:commandButton id="btnNuevaConsulta"
+                                                         value="#{msg['boton.etiqueta.nuevo']}"
+                                                         title="#{msg['boton.etiqueta.nuevo']}"
+                                                         update="gridDatos mensajes pgFormaDatosGrid toolDatosBotones"
+                                                         icon="ui-icon-circle-close" 
+                                                         actionListener="#{consultasMB.nuevaConsulta}"
+                                                         rendered="#{not empty consultasMB.consulta.id and consultasMB.consulta.id gt 0}"
+                                                         process="@this">
+                                            <p:resetInput target="gridDatos" />
+                                        </p:commandButton>
+
+                                        <p:commandButton id="btnBuscar"
+                                                         value="#{msg['boton.etiqueta.buscar']}"
+                                                         title="#{msg['boton.etiqueta.buscar']}"
+                                                         icon="ui-icon-search"
+                                                         onclick="pacientesDialog.show();"
+                                                         update="pgFormaDatosGrid mensajes"/>
+                                        <p:commandButton id="btnTratGuardar"
+                                         value="#{msg['boton.etiqueta.guardar']}"
+                                         title="#{msg['boton.etiqueta.guardar']}"
+                                         actionListener="#{consultasMB.guardar}"
+                                         icon="ui-icon-disk"
+                                         update="tvConsultas:tablaMedicamentos tvConsultas:pnlTratamientoFiltros mensajes"/>
+                                        <p:separator />
+                                        <p:commandButton id="btnPrintNotaMedica"
+                                                        value="#{msg['consultas.btn.notaMedica']}"
+                                                        actionListener="#{consultasMB.generarNotaMedica}"
+                                                        icon="ui-icon-print"
+                                                        oncomplete="validarDescargaNM();"
+                                                        update="mensajes panelVistaPreviaNM"/>
+                                    </p:toolbarGroup>  
+                                </p:toolbar>  
+                            </p:fieldset>
+                        </div>
+                    </h:panelGroup> 
+                    <p:spacer width="1px" height="10px"/>
+                    <h:panelGroup id="pgFormaDatosGrid"> 
+                        <div style="width: 1000px; height: 100%; margin-left: auto; margin-right: auto;">
+                            <p:tabView id="tvConsultas">
+                                <p:tab id="tabMotivo"
+                                       title="#{msg['consultas.lbl.motivoConsulta']}">
+                                    <ui:include src="motivoConsulta.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tabTratamiento"
+                                       title="#{msg['consultas.lbl.tratamiento']}">
+                                    <ui:include src="tratamiento.xhtml"/>
+                                </p:tab>
+                            </p:tabView>
+                        </div>
+                    </h:panelGroup>
+                    <p:dialog id="dlgMedicamentos"
+                              widgetVar="medicamentosDialog"
+                              closeOnEscape="true"
+                              resizable="false"
+                              modal="true"
+                              width="600px"
+                              height="550px">
+                        <ui:include src="../catalogos/filtroMedicamentos.xhtml">
+                            <ui:param name="nombreForma" value="consultasForm"/>
+                            <ui:param name="dialog" value="true"/>
+                        </ui:include>
+                    </p:dialog>
+                    <h:panelGroup id="panelVistaPreviaNM">
+                        <p:commandButton id="descargaNotaMedica"
+                                         value=""
+                                         ajax="false"
+                                         style="visibility: hidden;">
+                            <p:fileDownload value="#{consultasMB.notaMedicaExportada}"/>
+                        </p:commandButton>
+                        <script type="text/javascript">
+                            function validarDescargaNM() {
+                                var exportado = #{not empty consultasMB.notaMedicaExportada};
+                                if (exportado) {
+                                    document.getElementById('descargaNotaMedica').click();
+                                }
+                            }
+                        </script>
+                    </h:panelGroup>
+                </h:form>
+                <p:dialog widgetVar="pacientesDialog"
+                              closeOnEscape="true"
+                              resizable="false"
+                              modal="true"
+                              width="600px"
+                              height="550px">
+                    <ui:include src="../pacientes/filtroPacientes.xhtml">
+                        <ui:param name="dialog" value="true"/>
+                    </ui:include>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

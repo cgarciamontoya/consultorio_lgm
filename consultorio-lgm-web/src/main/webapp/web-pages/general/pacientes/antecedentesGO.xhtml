@@ -1,0 +1,198 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:panelGrid id="pnlAntecedesGO">
+        <h:panelGrid columns="8"
+                     columnClasses="textoDerecha alineacionTop,
+                     textoIzquierda alineacionTop,
+                     alineacionTop,
+                     textoDerecha alineacionTop,
+                     textoIzquierda alineacionTop,
+                     alineacionTop,
+                     textoDerecha alineacionTop,
+                     textoIzquierda alineacionTop">
+            <!-- inicio renglon 1-->
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.menarca']}"
+                                   for="txtMenarca"/>
+            <h:panelGroup>
+                <p:inputText id="txtMenarca"
+                             value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.menarca}"/>
+                <p:slider for="txtMenarca"
+                         minValue="8"
+                         maxValue="16"
+                         style="width: 117px;"/>
+            </h:panelGroup>
+            
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.cicloMenstrualRegular']}"
+                                   for="txtCicloMenstrual"/>
+            <h:panelGroup>
+                <p:spacer width="5px" height="1px"/>
+                <p:selectBooleanCheckbox id="txtCicloMenstrual"
+                                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.cicloMenstrualRegular}">
+                    <p:ajax event="change"
+                            update="txtDuracion"/>
+                </p:selectBooleanCheckbox>
+            </h:panelGroup>
+            
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.duracion']}"/>
+            <p:inputText id="txtDuracion"
+                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.duracionCicloMenstrual}"
+                         maxlength="50"
+                         style="width: 150px;"/>
+            <!-- inicio renglon 1-->
+            
+            <!-- inicio renglon 2-->
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.ivsa']}"
+                           for="txtIvsa"/>
+            <h:panelGroup>
+                <p:inputText id="txtIvsa"
+                             value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.ivsa}"/>
+                <p:slider for="txtIvsa"
+                          minValue="12"
+                          maxValue="80"
+                          style="width: 117px;"/>
+            </h:panelGroup>
+            
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.numeroParejas']}"
+                           for="txtNumParejas"/>
+            <p:inputText id="txtNumParejas"
+                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.numeroParejas}"/>
+            
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.mpf']}"
+                           for="txtMpf"/>
+            <p:selectOneMenu id="txtMpf"
+                             value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.idCatMpf.id}"
+                             styleClass="alineacionTop">
+                <c:selectItems value="#{historiaClinicaMB.listaMpf}"
+                               var="mpf"
+                               itemLabel="#{mpf.nombre}"
+                               itemValue="#{mpf.id}"/>
+            </p:selectOneMenu>
+            <!-- Fin Renglon 2-->
+            
+            <!-- Inicio Renglon 3-->
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.gesta']}"
+                               for="txtGesta"/>
+            <p:inputText id="txtGesta"
+                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.gesta}"
+                         maxlength="2"/>
+                
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.parto']}"
+                           for="txtParto"/>
+            <p:inputText id="txtParto"
+                      value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.parto}"
+                      maxlength="2"/>
+                
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:spacer width="5px" height="1px"/>
+            <p:spacer width="5px" height="1px"/>
+            <!-- Fin Renglon 3-->
+            
+            <!-- Inicio Renglon 4-->
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.aborto']}"
+                           for="txtAborto"/>
+            <p:inputText id="txtAborto"
+                        value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.abortos}"
+                        maxlength="2"/>
+            
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.cesarea']}"
+                               for="txtCesarea"/>
+                <p:inputText id="txtCesarea"
+                             value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.cesarea}"
+                             maxlength="2"/>
+            
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:spacer width="5px" height="1px"/>
+            <p:spacer width="5px" height="1px"/>
+                
+            <!-- Fin renglon 4 -->
+            
+            <!-- Inicio Renglon 5-->
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.fum']}"
+                           for="txtFum"/>
+            <p:calendar id="txtFum"
+                        value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.fechaUltimaMenstruacion}"
+                        pattern="dd/MM/yyyy"
+                        mode="popup"
+                        showOn="button"/>
+            
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.fpp']}"
+                           for="txtFpp"/>
+            <p:calendar id="txtFpp"
+                        value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.fechaProbableParto}"
+                        pattern="dd/MM/yyyy"
+                        mode="popup"
+                        showOn="button"/>
+            
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:spacer width="10px" height="1px"/>
+            <p:spacer width="10px" height="1px"/>
+            <!-- Fin renglon 5 -->
+            
+            <!-- Inicio Renglon 6 -->
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.papanicolaou']}"/>
+            <p:selectBooleanCheckbox value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.papanicolaou}">
+                <p:ajax event="change"
+                        update="txtResPapa"/>
+            </p:selectBooleanCheckbox>
+            
+            <p:spacer width="10px" height="1px"/>
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.exploracionMama']}"/>
+            <p:selectBooleanCheckbox id="chkExploracionMama"
+                                     value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.exploracionMama}"/>
+            <p:spacer width="10px" height="1px"/>
+            <p:spacer width="10px" height="1px"/>
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.resultado']}"
+                               for="txtResPapa"/>
+            <p:inputTextarea id="txtResPapa" value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.resultadoPapanicolaou}"
+                                 maxlength="500"
+                                 disabled="#{not historiaClinicaMB.paciente.idAntecedentesGinecologicos.papanicolaou}"
+                                 styleClass="textAreaGO"/>
+            
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:outputLabel value="#{msg['antecedentesGO.lbl.complicacionesEmbarazo']}"
+                           for="txtComplicacionesEmbarazo"/>
+            <p:inputTextarea id="txtComplicacionesEmbarazo"
+                             value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.complicacionesEmbarazo}"
+                             maxlength="500"
+                             styleClass="textAreaGO"/>
+            
+            <p:spacer width="10px" height="1px"/>
+            
+            <p:spacer width="1px" height="1px"/>
+            <p:spacer width="1px" height="1px"/>
+            
+            <!--p:outputLabel value="#{msg['antecedentesGO.lbl.motivoConsulta']}"
+                           for="txtMotivoConsulta"/>
+            <p:inputTextarea id="txtMotivoConsulta"
+                             value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.motivoConsulta}"
+                             maxlength="500"
+                             styleClass="textAreaGO"/-->
+            <!-- Fin Renglon 6 -->
+        </h:panelGrid>
+    </h:panelGrid>
+
+</ui:composition>
