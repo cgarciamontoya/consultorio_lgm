@@ -11,6 +11,8 @@
 	<parameter name="signosVitales" class="java.lang.String"/>
 	<parameter name="exploracionFisica" class="java.lang.String"/>
 	<parameter name="plan" class="java.lang.String"/>
+	<parameter name="medico" class="java.lang.String"/>
+	<parameter name="cedula" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
@@ -27,20 +29,20 @@
 				<reportElement x="493" y="0" width="79" height="79" uuid="d806d073-9c1a-4979-8f46-bd24844cc3c7"/>
 				<imageExpression><![CDATA[$P{EscudoUAZ}]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement x="79" y="24" width="414" height="20" uuid="3b04676e-2f8e-44eb-b7a2-084729fe4171"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+			<textField>
+				<reportElement x="79" y="24" width="414" height="20" uuid="452e92d4-b21a-42a2-b54a-bd99527ec189"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Dra. Laura Fabiola García Montoya]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="79" y="44" width="414" height="20" uuid="030ea41e-c39a-4b8a-83a0-fd471584bd92"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textFieldExpression><![CDATA[$P{medico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="44" width="414" height="20" uuid="fdede5ff-03b0-433f-ad9b-c656e0b36e27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Ced. Prof. 8014482]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{cedula}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="79" y="1" width="414" height="20" uuid="e668c80e-21ac-4928-9ddf-c676afa27ffe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">

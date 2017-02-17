@@ -63,4 +63,5 @@ public final class Constantes {
         
         public static final String ID_PACIENTE = "idPacienteSesion";
         public static final String ID_CONSULTA = "idConsultaSesion";
+        public static final String ID_USUARIO = "idUsuario";
 }

@@ -82,6 +82,7 @@ public class AdministradorAcceso implements AuthenticationProvider {
     	httpServletRequest.getSession().setAttribute("usuario", 
     	        usuario.getNombre() + " " + usuario.getApellidoPaterno() + " " + usuario.getApellidoMaterno());
         httpServletRequest.getSession().setAttribute("nombreUsuario", authentication.getName());
+        httpServletRequest.getSession().setAttribute(Constantes.ID_USUARIO, usuario.getIdUsuario());
     	
     	List<GrantedAuthority> authorities = new ArrayList<>();
          authorities.add ( new SimpleGrantedAuthority("ROLE_AUTHENTICATED") );

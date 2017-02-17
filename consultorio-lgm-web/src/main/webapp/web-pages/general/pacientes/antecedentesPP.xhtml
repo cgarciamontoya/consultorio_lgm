@@ -10,7 +10,8 @@
             <p:outputLabel value="#{msg['antecedentesPP.lbl.enfermedadesCronicas']}"
                            for="txtEnfCronicas"/>
             <p:selectManyMenu id="txtEnfCronicas"
-                              value="#{historiaClinicaMB.idsEnfCronicas}">
+                              value="#{historiaClinicaMB.idsEnfCronicas}"
+                              disabled="#{historiaClinicaMB.soloLectura}">
                 <c:selectItems value="#{historiaClinicaMB.listaEnfermedadesCronicas}"
                                var="enfCronicas"
                                itemLabel="#{enfCronicas.nombre}"
@@ -22,13 +23,15 @@
             <p:inputTextarea id="txtQuirurgicas"
                              value="#{historiaClinicaMB.paciente.idAntecedentes.quirurgicas}"
                              maxlength="500"
-                             styleClass="textAreaCaptura"/>
+                             styleClass="textAreaCaptura"
+                             disabled="#{historiaClinicaMB.soloLectura}"/>
             <h:panelGroup>
                 <p:outputLabel value="#{msg['antecedentesPP.lbl.hospitalizaciones']}"
                                for="chkHospitalizaciones"/>
                 <p:spacer width="5px" height="1px"/>
                 <p:selectBooleanCheckbox id="chkHospitalizaciones"
-                                         value="#{historiaClinicaMB.paciente.idAntecedentes.hospitalizaciones}">
+                                         value="#{historiaClinicaMB.paciente.idAntecedentes.hospitalizaciones}"
+                                         disabled="#{historiaClinicaMB.soloLectura}">
                     <p:ajax event="change"
                             update="txtHospitalizaciones"/>
                 </p:selectBooleanCheckbox>
@@ -36,7 +39,7 @@
             <p:inputTextarea id="txtHospitalizaciones"
                              value="#{historiaClinicaMB.paciente.idAntecedentes.motivoHospitalizacion}"
                              maxlength="500"
-                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.hospitalizaciones}"
+                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.hospitalizaciones or historiaClinicaMB.soloLectura}"
                              styleClass="textAreaCaptura"/>
             
             <h:panelGroup>
@@ -44,7 +47,8 @@
                                for="chkTransfusiones"/>
                 <p:spacer width="5px" height="1px"/>
                 <p:selectBooleanCheckbox id="chkTransfusiones"
-                                         value="#{historiaClinicaMB.paciente.idAntecedentes.transfuciones}">
+                                         value="#{historiaClinicaMB.paciente.idAntecedentes.transfuciones}"
+                                         disabled="#{historiaClinicaMB.soloLectura}">
                     <p:ajax event="change"
                             update="txtTransfusiones"/>
                 </p:selectBooleanCheckbox>
@@ -52,7 +56,7 @@
             <p:inputTextarea id="txtTransfusiones"
                              value="#{historiaClinicaMB.paciente.idAntecedentes.motivoTransfuciones}"
                              maxlength="500"
-                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.transfuciones}"
+                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.transfuciones or historiaClinicaMB.soloLectura}"
                              styleClass="textAreaCaptura"/>
             
             <h:panelGroup>
@@ -60,7 +64,8 @@
                                for="chkTraumaticos"/>
                 <p:spacer width="5px" height="1px"/>
                 <p:selectBooleanCheckbox id="chkTraumaticos"
-                                         value="#{historiaClinicaMB.paciente.idAntecedentes.traumaticas}">
+                                         value="#{historiaClinicaMB.paciente.idAntecedentes.traumaticas}"
+                                         disabled="#{historiaClinicaMB.soloLectura}">
                     <p:ajax event="change"
                             update="txtTraumaticos"/>
                 </p:selectBooleanCheckbox>
@@ -68,7 +73,7 @@
             <p:inputTextarea id="txtTraumaticos"
                              value="#{historiaClinicaMB.paciente.idAntecedentes.motivoTraumaticas}"
                              maxlength="500"
-                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.traumaticas}"
+                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.traumaticas or historiaClinicaMB.soloLectura}"
                              styleClass="textAreaCaptura"/>
             
             <h:panelGroup>
@@ -76,7 +81,8 @@
                                for="chkAlergias"/>
                 <p:spacer width="5px" height="1px"/>
                 <p:selectBooleanCheckbox id="chkAlergias"
-                                         value="#{historiaClinicaMB.paciente.idAntecedentes.alergias}">
+                                         value="#{historiaClinicaMB.paciente.idAntecedentes.alergias}"
+                                         disabled="#{historiaClinicaMB.soloLectura}">
                     <p:ajax event="change"
                             update="txtAlergias"/>
                 </p:selectBooleanCheckbox>
@@ -84,7 +90,7 @@
             <p:inputTextarea id="txtAlergias"
                              value="#{historiaClinicaMB.paciente.idAntecedentes.descripcionAlergias}"
                              maxlength="500"
-                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.alergias}"
+                             disabled="#{not historiaClinicaMB.paciente.idAntecedentes.alergias or historiaClinicaMB.soloLectura}"
                              styleClass="textAreaCaptura"/>
             <h:panelGroup>
                 <p:outputLabel value="*" style="color: red;"/>
@@ -94,7 +100,8 @@
             
             <h:panelGrid columns="3">
                 <p:selectOneMenu id="cboGpoSanguineo"
-                                 value="#{historiaClinicaMB.paciente.idAntecedentes.idGrupoSanguineo.id}">
+                                 value="#{historiaClinicaMB.paciente.idAntecedentes.idGrupoSanguineo.id}"
+                                 disabled="#{historiaClinicaMB.soloLectura}">
                     <c:selectItem itemLabel="#{msg['general.lbl.seleccione']}"/>
                     <c:selectItems value="#{historiaClinicaMB.listaGrupoSanguineo}"
                                    var="gpoSanguineo"
@@ -102,7 +109,8 @@
                                    itemValue="#{gpoSanguineo.id}"/>
                 </p:selectOneMenu>
                 <p:outputLabel value="#{msg['antecedentesPP.lbl.rhPositivo']}"/>
-                <p:selectBooleanCheckbox value="#{historiaClinicaMB.paciente.idAntecedentes.rhPositivo}"/>
+                <p:selectBooleanCheckbox value="#{historiaClinicaMB.paciente.idAntecedentes.rhPositivo}"
+                                         disabled="#{historiaClinicaMB.soloLectura}"/>
             </h:panelGrid>
         </h:panelGrid>
     </h:panelGrid>

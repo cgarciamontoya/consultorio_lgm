@@ -20,7 +20,8 @@
                                 completeMethod="#{consultasMB.medicamentoComplete}"
                                 forceSelection="true"
                                 minQueryLength="3"
-                                size="58">
+                                size="58"
+                                disabled="#{consultasMB.soloLectura}">
                     <p:ajax event="itemSelect"
                             listener="#{consultasMB.agregarMedicamentoTratamiento}"
                             update="txtDescripcion"/>
@@ -36,7 +37,8 @@
                                  value=""
                                  icon="ui-icon-folder-open"
                                  style="width: 30px; height: 20px;"
-                                 onclick="medicamentosDialog.show();"/>
+                                 onclick="medicamentosDialog.show();"
+                                 disabled="#{consultasMB.soloLectura}"/>
             </h:panelGroup>
             
             <p:outputLabel value="#{msg['consultas.lbl.presentacion']}"/>
@@ -53,28 +55,32 @@
             <p:inputText id="txtDosis"
                          value="#{consultasMB.tratamiento.dosis}"
                          maxlength="100"
-                         style="width: 300px;"/>
+                         style="width: 300px;"
+                         disabled="#{consultasMB.soloLectura}"/>
             
             <p:outputLabel value="#{msg['consultas.lbl.horario']}"
                            for="txtHorario"/>
             <p:inputText value="#{consultasMB.tratamiento.horario}"
                          id="txtHorario"
                          maxlength="100"
-                         style="width: 300px"/>
+                         style="width: 300px"
+                         disabled="#{consultasMB.soloLectura}"/>
             
             <p:outputLabel value="#{msg['consultas.lbl.duracion']}"
                            for="txtDuracion"/>
             <p:inputText id="txtDuracion"
                          value="#{consultasMB.tratamiento.duracion}"
                          maxlength="100"
-                         style="width: 300px"/>
+                         style="width: 300px"
+                         disabled="#{consultasMB.soloLectura}"/>
             
             <p:outputLabel value="#{msg['consultas.lbl.recomendaciones']}"
                            for="txtRecomendaciones"/>
             <p:inputTextarea id="txtRecomendaciones"
                              value="#{consultasMB.tratamiento.recomendaciones}"
                              maxlength="255"
-                             styleClass="textAreaMotivo"/>
+                             styleClass="textAreaMotivo"
+                             disabled="#{consultasMB.soloLectura}"/>
             <c:facet name="footer">
                 <p:toolbar id="toolBarTratamiento">
                     <p:toolbarGroup align="right">
@@ -82,7 +88,7 @@
                                          value="#{msg['boton.etiqueta.agregar']}"
                                          title="#{msg['boton.etiqueta.agregar']}"
                                          actionListener="#{consultasMB.agregarMedicamento}"
-                                         disabled="#{not empty consultasMB.consulta.id and consultasMB.consulta.id gt 0}"
+                                         disabled="#{(not empty consultasMB.consulta.id and consultasMB.consulta.id gt 0) or consultasMB.soloLectura}"
                                          icon="ui-icon-plus"
                                          update="tablaMedicamentos pnlTratamientoFiltros :consultasForm:mensajes"/>
                         <p:commandButton id="btnTratQuitar"
@@ -90,7 +96,7 @@
                                          title="#{msg['boton.etiqueta.quitar']}"
                                          actionListener="#{consultasMB.quitarMedicamento}"
                                          icon="ui-icon-minus"
-                                         disabled="#{empty consultasMB.receta or (not empty consultasMB.consulta.id and consultasMB.consulta.id gt 0)}"
+                                         disabled="#{(empty consultasMB.receta or (not empty consultasMB.consulta.id and consultasMB.consulta.id gt 0)) or consultasMB.soloLectura}"
                                          update="tablaMedicamentos pnlTratamientoFiltros :consultasForm:mensajes"/>
                         <p:separator/>
                         <p:commandButton id="btnTratLimpiar"
@@ -98,7 +104,7 @@
                                          title="#{msg['boton.etiqueta.limpiar']}"
                                          actionListener="#{consultasMB.limpiarTratamiento}"
                                          icon="ui-icon-trash"
-                                         disabled="#{not empty consultasMB.consulta.id and consultasMB.consulta.id gt 0}"
+                                         disabled="#{(not empty consultasMB.consulta.id and consultasMB.consulta.id gt 0) or consultasMB.soloLectura}"
                                          process="@this"
                                          update="tablaMedicamentos pnlTratamientoFiltros">
                             <p:resetInput target="pnlTratamientoFiltros"/>

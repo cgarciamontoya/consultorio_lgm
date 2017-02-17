@@ -22,7 +22,9 @@
             <p:inputTextarea id="txtMotivoConsulta"
                              value="#{consultasMB.consulta.motivoConsulta}"
                              maxlength="500"
-                             styleClass="textAreaMotivo"/>
+                             styleClass="textAreaMotivo"
+                             autoResize="false"
+                             disabled="#{consultasMB.soloLectura}"/>
             <!-- Fin Renglon 1 -->
             <!-- Renglon 2 -->
             <p:outputLabel value="#{msg['consultas.lbl.peso']}"
@@ -30,7 +32,8 @@
             <h:panelGroup>
             <p:inputText id="txtPeso"
                          value="#{consultasMB.consulta.peso}"
-                         style="width: 70px;"/>
+                         style="width: 70px;"
+                         disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value="#{msg['consultas.lbl.kg']}"/>
             </h:panelGroup>
             <p:outputLabel value="#{msg['consultas.lbl.talla']}"
@@ -38,7 +41,8 @@
             <h:panelGroup>
             <p:inputText id="txtTalla"
                          value="#{consultasMB.consulta.talla}"
-                         style="width: 70px"/>
+                         style="width: 70px"
+                         disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value="#{msg['consultas.lbl.mts']}"/>
             </h:panelGroup>
             <!-- Fin Renglon 2 -->
@@ -47,14 +51,16 @@
                            for="txtFC"/>
             <h:panelGroup>
             <p:inputText id="txtFC"
-                         value="#{consultasMB.consulta.frecuenciaCardiaca}"/>
+                         value="#{consultasMB.consulta.frecuenciaCardiaca}"
+                         disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value="#{msg['consultas.lbl.ppm']}"/>
             </h:panelGroup>
             <p:outputLabel value="#{msg['consultas.lbl.fr']}"
                            for="txtFR"/>
             <h:panelGroup>
             <p:inputText id="txtFR"
-                         value="#{consultasMB.consulta.frecuenciaRespiratoria}"/>
+                         value="#{consultasMB.consulta.frecuenciaRespiratoria}"
+                         disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value="#{msg['consultas.lbl.rpm']}"/>
             </h:panelGroup>
             <!-- Fin Renglon 3 -->
@@ -63,17 +69,20 @@
             <h:panelGroup>
             <p:inputText id="txtTAS"
                          value="#{consultasMB.consulta.taSistolica}"
-                         style="width: 20px;"/>
+                         style="width: 20px;"
+                         disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value=" / "/>
             <p:inputText id="txtTAD"
                          value="#{consultasMB.consulta.taDiastolica}"
-                         style="width: 20px"/>
+                         style="width: 20px"
+                         disabled="#{consultasMB.soloLectura}"/>
             </h:panelGroup>
             <p:outputLabel value="#{msg['consultas.lbl.temperatura']}"
                            for="txtTemperatura"/>
             <h:panelGroup>
             <p:inputText id="txtTemperatura"
-                         value="#{consultasMB.consulta.temperatura}"/>
+                         value="#{consultasMB.consulta.temperatura}"
+                         disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value="#{msg['consultas.lbl.grados']}"/>
             </h:panelGroup>
             <!-- Fin Renglon 4 -->
@@ -82,14 +91,16 @@
                            for="txtGlucosa"/>
             <h:panelGroup>
             <p:inputText id="txtGlucosa"
-                         value="#{consultasMB.consulta.glucosa}"/>
+                         value="#{consultasMB.consulta.glucosa}"
+                         disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value="#{msg['consultas.lbl.mgdl']}"/>
             </h:panelGroup>
             <p:outputLabel value="#{msg['consultas.lbl.circAbd']}"
                            for="txtCC"/>
             <h:panelGroup>
             <p:inputText id="txtCC"
-                         value="#{consultasMB.consulta.circunferenciaAbdominal}"/>
+                         value="#{consultasMB.consulta.circunferenciaAbdominal}"
+                         disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value="#{msg['consultas.lbl.cms']}"/>
             </h:panelGroup>
             <p:outputLabel value="#{msg['consultas.lbl.proxCita']}"
@@ -99,7 +110,8 @@
                         pattern="dd/MM/yyyy"
                         mode="popup"
                         showOn="button"
-                        navigator="true"/>
+                        navigator="true"
+                        disabled="#{consultasMB.soloLectura}"/>
             <p:spacer width="1px" height="1px"/>
             <p:spacer width="1px" height="1px"/>
             <!-- Fin Renglon 5 -->
@@ -109,25 +121,29 @@
             <p:inputTextarea id="txtExploracionFisica"
                              value="#{consultasMB.consulta.exploracionFisica}"
                              maxlength="500"
-                             styleClass="textAreaCaptura"/>
+                             styleClass="textAreaCaptura"
+                             disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value="#{msg['consultas.lbl.laboratoriosGabinete']}"
                            for="txtLabGab"/>
             <p:inputTextarea id="txtLabGab"
                              value="#{consultasMB.consulta.laboratorioGabinete}"
                              maxlength="500"
-                             styleClass="textAreaCaptura"/>
+                             styleClass="textAreaCaptura"
+                             disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value="#{msg['consultas.lbl.diagnostico']}"
                            for="txtDiagnostico"/>
             <p:inputTextarea id="txtDiagnostico"
                              value="#{consultasMB.consulta.diagnostico}"
                              maxlength="500"
-                             styleClass="textAreaCaptura"/>
+                             styleClass="textAreaCaptura"
+                             disabled="#{consultasMB.soloLectura}"/>
             <p:outputLabel value="#{msg['consultas.lbl.plan']}"
                            for="txtPlan"/>
             <p:inputTextarea id="txtPlan"
                              value="#{consultasMB.consulta.plan}"
                              maxlength="500"
-                             styleClass="textAreaCaptura"/>
+                             styleClass="textAreaCaptura"
+                             disabled="#{consultasMB.soloLectura}"/>
             <!-- Fin Renglon 6 -->
         </h:panelGrid>
     </h:panelGrid>

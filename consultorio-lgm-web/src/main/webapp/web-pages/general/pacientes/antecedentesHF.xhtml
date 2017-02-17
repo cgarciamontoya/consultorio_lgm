@@ -15,7 +15,8 @@
                 <p:inputTextarea id="txtCgp"
                                  value="#{historiaClinicaMB.paciente.idAntecedentes.cargaGeneticaPaternal}"
                                  maxlength="500"
-                                 styleClass="textAreaCaptura"/>
+                                 styleClass="textAreaCaptura"
+                                 disabled="#{historiaClinicaMB.soloLectura}"/>
             </p:column>
             <p:column>
                 <p:spacer width="15px" height="1px"/>
@@ -27,7 +28,8 @@
                 <p:inputTextarea id="txtCgm"
                                  value="#{historiaClinicaMB.paciente.idAntecedentes.cargaGeneticaMaternal}"
                                  maxlength="500"
-                                 styleClass="textAreaCaptura"/>
+                                 styleClass="textAreaCaptura"
+                                 disabled="#{historiaClinicaMB.soloLectura}"/>
             </p:column>
         </p:row>
     </h:panelGrid>

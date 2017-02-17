@@ -44,6 +44,7 @@
                                                          icon="ui-icon-circle-close" 
                                                          actionListener="#{consultasMB.limpiar}"
                                                          rendered="#{empty consultasMB.consulta.id or consultasMB.consulta.id eq 0}"
+                                                         disabled="#{consultasMB.soloLectura}"
                                                          process="@this">
                                             <p:resetInput target="gridDatos" />
                                         </p:commandButton>
@@ -70,7 +71,8 @@
                                          title="#{msg['boton.etiqueta.guardar']}"
                                          actionListener="#{consultasMB.guardar}"
                                          icon="ui-icon-disk"
-                                         update="tvConsultas:tablaMedicamentos tvConsultas:pnlTratamientoFiltros mensajes"/>
+                                         update="tvConsultas:tablaMedicamentos tvConsultas:pnlTratamientoFiltros mensajes"
+                                         disabled="#{consultasMB.soloLectura}"/>
                                         <p:separator />
                                         <p:commandButton id="btnPrintNotaMedica"
                                                         value="#{msg['consultas.btn.notaMedica']}"
@@ -131,7 +133,7 @@
                               closeOnEscape="true"
                               resizable="false"
                               modal="true"
-                              width="600px"
+                              width="750px"
                               height="550px">
                     <ui:include src="../pacientes/filtroPacientes.xhtml">
                         <ui:param name="dialog" value="true"/>

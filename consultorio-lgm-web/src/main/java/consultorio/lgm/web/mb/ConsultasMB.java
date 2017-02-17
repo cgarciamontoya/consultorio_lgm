@@ -14,12 +14,14 @@ import consultorio.lgm.datos.entidades.Consulta;
 import consultorio.lgm.datos.entidades.Medicamento;
 import consultorio.lgm.datos.entidades.Paciente;
 import consultorio.lgm.datos.entidades.Tratamiento;
+import consultorio.lgm.datos.entidades.Usuario;
 import consultorio.lgm.excepciones.ExcepcionReporte;
 import consultorio.lgm.excepciones.ExcepcionServicio;
 import consultorio.lgm.excepciones.LGMConstantesExcepciones;
 import consultorio.lgm.servicios.CatalogosServicio;
 import consultorio.lgm.servicios.ConsultasServicio;
 import consultorio.lgm.servicios.PacienteServicio;
+import consultorio.lgm.servicios.UsuarioServicio;
 import consultorio.lgm.web.Constantes;
 import consultorio.lgm.web.IVistaHelper;
 import java.io.IOException;
@@ -72,6 +74,8 @@ public class ConsultasMB implements Serializable {
     private List<Medicamento> listaMedicamentos;
     private Tratamiento[] medicamentosSeleccionados;
     
+    private boolean soloLectura;
+    
     @ManagedProperty(value = "#{pacienteServicio}")
     private PacienteServicio pacienteServicio;
     @ManagedProperty(value = "#{vistaJSFHelper}")
@@ -80,13 +84,19 @@ public class ConsultasMB implements Serializable {
     private CatalogosServicio catalogosServicio;
     @ManagedProperty(value = "#{consultasServicio}")
     private ConsultasServicio consultasServicio;
+    @ManagedProperty(value = "#{servicioUsuario}")
+    private UsuarioServicio servicioUsuario;
     
     @PostConstruct
     public void init() {
         limpiar();
+        soloLectura = false;
         if (vistaHelper.recuperaSesion().getAttribute(Constantes.ID_PACIENTE) != null) {
             paciente = pacienteServicio.consultarPacienteDTOId(
                     (Long) vistaHelper.recuperaSesion().getAttribute(Constantes.ID_PACIENTE));
+            if (!paciente.getIdUsuario().equals((Integer) vistaHelper.recuperaSesion().getAttribute(Constantes.ID_USUARIO))) {
+                soloLectura = true;
+            }
         }
         if (vistaHelper.recuperaSesion().getAttribute(Constantes.ID_CONSULTA) != null) {
             consulta = consultasServicio.recuperaPorId(
@@ -97,6 +107,8 @@ public class ConsultasMB implements Serializable {
                     receta = consulta.getTratamientoList();
                 }
             }
+        } else {
+            soloLectura = false;
         }
         try {
             listaMedicamentos = catalogosServicio.consultarMedicamento(null);
@@ -117,9 +129,11 @@ public class ConsultasMB implements Serializable {
     
     public void nuevaConsulta() {
         limpiar();
+        soloLectura = false;
         if (vistaHelper.recuperaSesion().getAttribute(Constantes.ID_CONSULTA) != null) {
             vistaHelper.recuperaSesion().removeAttribute(Constantes.ID_CONSULTA);
         }
+        consulta.setUsuario(new Usuario((Integer) vistaHelper.recuperaSesion().getAttribute(Constantes.ID_USUARIO)));
     }
     
     public void guardar() {
@@ -129,6 +143,9 @@ public class ConsultasMB implements Serializable {
             }*/
             consulta.setTratamientoList(receta);
             consulta.setIdPaciente(new Paciente(paciente.getId()));
+            if (consulta.getUsuario() == null || consulta.getUsuario().getIdUsuario() == null || consulta.getUsuario().getIdUsuario() == 0) {
+                consulta.setUsuario(new Usuario((Integer) vistaHelper.recuperaSesion().getAttribute(Constantes.ID_USUARIO)));
+            }
             consulta = consultasServicio.guardarConsulta(consulta);
             vistaHelper.recuperaSesion().setAttribute(Constantes.ID_CONSULTA, consulta.getId());
             vistaHelper.agregarMensajeExito(EXITO_GUARDAR_CONSULTA);
@@ -337,7 +354,19 @@ public class ConsultasMB implements Serializable {
                 .append(df2.format(consulta.getPeso() / (consulta.getTalla() * consulta.getTalla()))).append(".");
         params.put(LGMConstantes.PARAM_NM_SIGNOS_VITALES, sv.toString());
         params.put(LGMConstantes.PARAM_NM_NOMBRE_REP, paciente.getNombre() + "_" + paciente.getApellidoPaterno() + "_" + paciente.getApellidoMaterno());
+        if (consulta.getUsuario() == null || consulta.getUsuario().getIdUsuario() == null || consulta.getUsuario().getIdUsuario() == 0) {
+            Usuario usr = getMedicoSesion();
+            params.put("medico", "Dr(a). " + usr.getNombre() + " " + usr.getApellidoPaterno() + " " + usr.getApellidoMaterno());
+            params.put("cedula", "Ced. Prof. " + usr.getCedula());
+        } else {
+            params.put("medico", "Dr(a). " + consulta.getUsuario().getNombre() + " " + consulta.getUsuario().getApellidoPaterno() + " " + consulta.getUsuario().getApellidoMaterno());
+            params.put("cedula", "Ced. Prof. " + consulta.getUsuario().getCedula());
+        }
         return params;
+    }
+    
+    private Usuario getMedicoSesion() {
+        return servicioUsuario.recuperaPorId((Integer) vistaHelper.recuperaSesion().getAttribute(Constantes.ID_USUARIO));
     }
     
     public void recargarMedicamento() {
@@ -431,4 +460,17 @@ public class ConsultasMB implements Serializable {
     public void setNotaMedicaExportada(StreamedContent notaMedicaExportada) {
         this.notaMedicaExportada = notaMedicaExportada;
     }
+
+    public boolean isSoloLectura() {
+        return soloLectura;
+    }
+
+    public void setSoloLectura(boolean soloLectura) {
+        this.soloLectura = soloLectura;
+    }
+
+    public void setServicioUsuario(UsuarioServicio servicioUsuario) {
+        this.servicioUsuario = servicioUsuario;
+    }
+    
 }

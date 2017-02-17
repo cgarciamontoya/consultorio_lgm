@@ -7,6 +7,8 @@
 package consultorio.lgm.datos.dto;
 
 import java.util.Date;
+import org.jdto.annotation.Source;
+import org.jdto.mergers.MethodCallMerger;
 
 /**
  *
@@ -24,6 +26,10 @@ public class PacienteDTO {
     private String direccion;
     private String telefono;
     private String religion;
+    @Source(value = "usuario", merger = MethodCallMerger.class, mergerParam = "getIdUsuario")
+    private Integer idUsuario;
+    @Source(value = "usuario", merger = MethodCallMerger.class, mergerParam = "getNombreMedico")
+    private String medico;
 
     public Long getId() {
         return id;
@@ -104,7 +110,21 @@ public class PacienteDTO {
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-    
-    
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getMedico() {
+        return medico;
+    }
+
+    public void setMedico(String medico) {
+        this.medico = medico;
+    }
     
 }

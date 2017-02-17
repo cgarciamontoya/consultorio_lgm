@@ -142,6 +142,18 @@ public class UsuarioServicioImpl extends ServicioBase implements Serializable, U
         }
     }
 
+    @Override
+    public Usuario recuperaPorId(Integer id) {
+        if (id == null || id == 0) {
+            throw fabricaExcepciones.crear(ExcepcionServicio.class, LGMConstantesExcepciones.SERVICIO_VALORES_NULL);
+        }
+        try {
+            return usuarioDAO.recuperarPorId(id);
+        } catch (ExcepcionDAO e) {
+            throw fabricaExcepciones.crear(ExcepcionServicio.class, e.getNumeroError());
+        }
+    }
+    
     // ------------------------------- Setters y Getters
     // -------------------------------------
     /**

@@ -189,7 +189,11 @@ public class PacienteServicioImpl extends ServicioBase implements PacienteServic
             Consulta notaMedica = this.obtenerNotaMedica(id);
             List<HistoriaClinicaVO> detalle = new ArrayList<>();
             detalle.add(HistoriaClinicaUtil.crearHC(paciente, notaMedica));
-            return reportesManagerServicio.generarReporte(detalle, new HashMap(),
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("medico", "Dr(a). " + paciente.getUsuario().getNombre() + " " + paciente.getUsuario().getApellidoPaterno() 
+                    + " " + paciente.getUsuario().getApellidoMaterno());
+            parametros.put("cedula", "Ced. Prof. " + paciente.getUsuario().getCedula());
+            return reportesManagerServicio.generarReporte(detalle, parametros,
                     LGMConstantes.NOMBRE_REPORTE_HISTORIA_CLINICA_SPRING, TipoReporte.PDF);
         } catch (ExcepcionServicio | ExcepcionReporte e) {
             throw e;

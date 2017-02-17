@@ -27,6 +27,8 @@ public class ConsultaDTO {
     private String maternoPaciente;
     @Source(value = "idPaciente.id")
     private Long idPaciente;
+    @Source(value = "usuario.nombreMedico")
+    private String medico;
 
     public Long getId() {
         return id;
@@ -90,6 +92,14 @@ public class ConsultaDTO {
 
     public void setIdPaciente(Long idPaciente) {
         this.idPaciente = idPaciente;
+    }
+
+    public String getMedico() {
+        return medico;
+    }
+
+    public void setMedico(String medico) {
+        this.medico = medico;
     }
     
     

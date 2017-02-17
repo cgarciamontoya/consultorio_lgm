@@ -16,6 +16,7 @@ import consultorio.lgm.datos.entidades.CatMpf;
 import consultorio.lgm.datos.entidades.Consulta;
 import consultorio.lgm.datos.entidades.Paciente;
 import consultorio.lgm.datos.entidades.RelAntecedentesEnfermedades;
+import consultorio.lgm.datos.entidades.Usuario;
 import consultorio.lgm.excepciones.ExcepcionReporte;
 import consultorio.lgm.excepciones.ExcepcionServicio;
 import consultorio.lgm.servicios.CatalogosServicio;
@@ -69,6 +70,8 @@ public class HistoriaClinicaMB implements Serializable {
     private List<CatMpf> listaMpf;
     private List<String> idsEnfCronicas;
     
+    private boolean soloLectura;
+    
     @ManagedProperty(value = "#{pacienteServicio}")
     private PacienteServicio pacienteServicio;
     @ManagedProperty(value = "#{vistaJSFHelper}")
@@ -78,8 +81,10 @@ public class HistoriaClinicaMB implements Serializable {
 
     @PostConstruct
     public void init() {
+        soloLectura = false;
         if (vistaHelper.recuperaSesion().getAttribute(Constantes.ID_PACIENTE) != null) {
             Long idPaciente = (Long) vistaHelper.recuperaSesion().getAttribute(Constantes.ID_PACIENTE);
+            Integer idUsuario = (Integer) vistaHelper.recuperaSesion().getAttribute(Constantes.ID_USUARIO);
             paciente = pacienteServicio.consultarPacienteId(idPaciente);
             if (paciente.getIdAntecedentes().getRelAntecedentesEnfermedadesList() != null
                     && !paciente.getIdAntecedentes().getRelAntecedentesEnfermedadesList().isEmpty()) {
@@ -89,6 +94,9 @@ public class HistoriaClinicaMB implements Serializable {
                 }
             }
             notaMedica = pacienteServicio.obtenerNotaMedica(idPaciente);
+            if (!paciente.getUsuario().getIdUsuario().equals(idUsuario)) {
+                soloLectura = true;
+            }
         } else {
             inicializarPaciente(true);
         }
@@ -188,6 +196,7 @@ public class HistoriaClinicaMB implements Serializable {
     public void crearNuevo() {
         vistaHelper.recuperaSesion().removeAttribute(Constantes.ID_PACIENTE);
         limpiarInterno(true);
+        soloLectura = false;
     }
     
     private void inicializarPaciente(boolean nuevo) {
@@ -207,6 +216,9 @@ public class HistoriaClinicaMB implements Serializable {
         if (!nuevo && idPaciente != null) {
             paciente.setId(idPaciente);
         }
+        Usuario usr = new Usuario();
+        usr.setIdUsuario((Integer) vistaHelper.recuperaSesion().getAttribute("idUsuario"));
+        paciente.setUsuario(usr);
     }
     
     public void generarHistoriaClinica() {
@@ -318,4 +330,14 @@ public class HistoriaClinicaMB implements Serializable {
     public void setHistoriaClinicaExportada(StreamedContent historiaClinicaExportada) {
         this.historiaClinicaExportada = historiaClinicaExportada;
     }
+
+    public boolean isSoloLectura() {
+        return soloLectura;
+    }
+
+    public void setSoloLectura(boolean soloLectura) {
+        this.soloLectura = soloLectura;
+    }
+    
+    
 }

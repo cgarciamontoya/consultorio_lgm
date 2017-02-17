@@ -63,6 +63,9 @@ public class BusquedasConsultasMB implements Serializable {
         try {
             consultas = null;
             consultas = consultasServicio.recuperaPorFiltro(paciente.getId(), fecha);
+            if (consultas == null || consultas.isEmpty()) {
+                vistaHelper.agregarMensajeErrorSimple("No se encontraron resultados");
+            }
         } catch (ExcepcionServicio e) {
             vistaHelper.agregarMensajeError(ERROR_CONSULTA);
         }

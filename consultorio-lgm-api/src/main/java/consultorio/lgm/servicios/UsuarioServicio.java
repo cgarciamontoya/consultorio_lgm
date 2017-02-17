@@ -72,5 +72,7 @@ public interface UsuarioServicio {
      * subsistema de persistencia.
      */
     List<Usuario> recuperarPorFiltro(Usuario usuario);
+    
+    Usuario recuperaPorId(Integer id);
 
 }

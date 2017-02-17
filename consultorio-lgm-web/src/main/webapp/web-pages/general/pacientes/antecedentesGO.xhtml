@@ -19,7 +19,8 @@
                                    for="txtMenarca"/>
             <h:panelGroup>
                 <p:inputText id="txtMenarca"
-                             value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.menarca}"/>
+                             value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.menarca}"
+                             disabled="#{historiaClinicaMB.soloLectura}"/>
                 <p:slider for="txtMenarca"
                          minValue="8"
                          maxValue="16"
@@ -33,7 +34,8 @@
             <h:panelGroup>
                 <p:spacer width="5px" height="1px"/>
                 <p:selectBooleanCheckbox id="txtCicloMenstrual"
-                                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.cicloMenstrualRegular}">
+                                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.cicloMenstrualRegular}"
+                                         disabled="#{historiaClinicaMB.soloLectura}">
                     <p:ajax event="change"
                             update="txtDuracion"/>
                 </p:selectBooleanCheckbox>
@@ -45,7 +47,8 @@
             <p:inputText id="txtDuracion"
                          value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.duracionCicloMenstrual}"
                          maxlength="50"
-                         style="width: 150px;"/>
+                         style="width: 150px;"
+                         disabled="#{historiaClinicaMB.soloLectura}"/>
             <!-- inicio renglon 1-->
             
             <!-- inicio renglon 2-->
@@ -53,7 +56,8 @@
                            for="txtIvsa"/>
             <h:panelGroup>
                 <p:inputText id="txtIvsa"
-                             value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.ivsa}"/>
+                             value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.ivsa}"
+                             disabled="#{historiaClinicaMB.soloLectura}"/>
                 <p:slider for="txtIvsa"
                           minValue="12"
                           maxValue="80"
@@ -65,7 +69,8 @@
             <p:outputLabel value="#{msg['antecedentesGO.lbl.numeroParejas']}"
                            for="txtNumParejas"/>
             <p:inputText id="txtNumParejas"
-                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.numeroParejas}"/>
+                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.numeroParejas}"
+                         disabled="#{historiaClinicaMB.soloLectura}"/>
             
             <p:spacer width="10px" height="1px"/>
             
@@ -73,7 +78,8 @@
                            for="txtMpf"/>
             <p:selectOneMenu id="txtMpf"
                              value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.idCatMpf.id}"
-                             styleClass="alineacionTop">
+                             styleClass="alineacionTop"
+                             disabled="#{historiaClinicaMB.soloLectura}">
                 <c:selectItems value="#{historiaClinicaMB.listaMpf}"
                                var="mpf"
                                itemLabel="#{mpf.nombre}"
@@ -86,7 +92,8 @@
                                for="txtGesta"/>
             <p:inputText id="txtGesta"
                          value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.gesta}"
-                         maxlength="2"/>
+                         maxlength="2"
+                         disabled="#{historiaClinicaMB.soloLectura}"/>
                 
             <p:spacer width="10px" height="1px"/>
             
@@ -94,7 +101,8 @@
                            for="txtParto"/>
             <p:inputText id="txtParto"
                       value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.parto}"
-                      maxlength="2"/>
+                      maxlength="2"
+                      disabled="#{historiaClinicaMB.soloLectura}"/>
                 
             <p:spacer width="10px" height="1px"/>
             
@@ -107,7 +115,8 @@
                            for="txtAborto"/>
             <p:inputText id="txtAborto"
                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.abortos}"
-                        maxlength="2"/>
+                        maxlength="2"
+                        disabled="#{historiaClinicaMB.soloLectura}"/>
             
             <p:spacer width="10px" height="1px"/>
             
@@ -115,7 +124,8 @@
                                for="txtCesarea"/>
                 <p:inputText id="txtCesarea"
                              value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.cesarea}"
-                             maxlength="2"/>
+                             maxlength="2"
+                             disabled="#{historiaClinicaMB.soloLectura}"/>
             
             <p:spacer width="10px" height="1px"/>
             
@@ -131,7 +141,8 @@
                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.fechaUltimaMenstruacion}"
                         pattern="dd/MM/yyyy"
                         mode="popup"
-                        showOn="button"/>
+                        showOn="button"
+                        disabled="#{historiaClinicaMB.soloLectura}"/>
             
             <p:spacer width="10px" height="1px"/>
             
@@ -141,7 +152,8 @@
                         value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.fechaProbableParto}"
                         pattern="dd/MM/yyyy"
                         mode="popup"
-                        showOn="button"/>
+                        showOn="button"
+                        disabled="#{historiaClinicaMB.soloLectura}"/>
             
             <p:spacer width="10px" height="1px"/>
             
@@ -151,7 +163,8 @@
             
             <!-- Inicio Renglon 6 -->
             <p:outputLabel value="#{msg['antecedentesGO.lbl.papanicolaou']}"/>
-            <p:selectBooleanCheckbox value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.papanicolaou}">
+            <p:selectBooleanCheckbox value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.papanicolaou}"
+                                     disabled="#{historiaClinicaMB.soloLectura}">
                 <p:ajax event="change"
                         update="txtResPapa"/>
             </p:selectBooleanCheckbox>
@@ -159,7 +172,8 @@
             <p:spacer width="10px" height="1px"/>
             <p:outputLabel value="#{msg['antecedentesGO.lbl.exploracionMama']}"/>
             <p:selectBooleanCheckbox id="chkExploracionMama"
-                                     value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.exploracionMama}"/>
+                                     value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.exploracionMama}"
+                                     disabled="#{historiaClinicaMB.soloLectura}"/>
             <p:spacer width="10px" height="1px"/>
             <p:spacer width="10px" height="1px"/>
             <p:spacer width="10px" height="1px"/>
@@ -168,7 +182,7 @@
                                for="txtResPapa"/>
             <p:inputTextarea id="txtResPapa" value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.resultadoPapanicolaou}"
                                  maxlength="500"
-                                 disabled="#{not historiaClinicaMB.paciente.idAntecedentesGinecologicos.papanicolaou}"
+                                 disabled="#{not historiaClinicaMB.paciente.idAntecedentesGinecologicos.papanicolaou or historiaClinicaMB.soloLectura}"
                                  styleClass="textAreaGO"/>
             
             <p:spacer width="10px" height="1px"/>
@@ -178,7 +192,8 @@
             <p:inputTextarea id="txtComplicacionesEmbarazo"
                              value="#{historiaClinicaMB.paciente.idAntecedentesGinecologicos.complicacionesEmbarazo}"
                              maxlength="500"
-                             styleClass="textAreaGO"/>
+                             styleClass="textAreaGO"
+                             disabled="#{historiaClinicaMB.soloLectura}"/>
             
             <p:spacer width="10px" height="1px"/>
             

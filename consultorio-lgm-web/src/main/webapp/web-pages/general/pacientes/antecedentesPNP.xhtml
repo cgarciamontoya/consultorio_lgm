@@ -10,25 +10,29 @@
         <p:inputTextarea id="txtVivienda"
                          value="#{historiaClinicaMB.paciente.idAntecedentes.vivienda}"
                          maxlength="500"
-                         styleClass="textAreaCaptura"/>
+                         styleClass="textAreaCaptura"
+                         disabled="#{historiaClinicaMB.soloLectura}"/>
         <p:outputLabel value="#{msg['antecedentesPNP.lbl.alimentacion']}"
                        for="txtAlimentacion"/>
         <p:inputTextarea id="txtAlimentacion"
                          value="#{historiaClinicaMB.paciente.idAntecedentes.alimentacion}"
                          maxlength="500"
-                         styleClass="textAreaCaptura"/>
+                         styleClass="textAreaCaptura"
+                         disabled="#{historiaClinicaMB.soloLectura}"/>
         <p:outputLabel value="#{msg['antecedentesPNP.lbl.higiene']}"
                        for="txtHigiene"/>
         <p:inputTextarea id="txtHigiene"
                          value="#{historiaClinicaMB.paciente.idAntecedentes.higiene}"
                          maxlength="500"
-                         styleClass="textAreaCaptura"/>
+                         styleClass="textAreaCaptura"
+                         disabled="#{historiaClinicaMB.soloLectura}"/>
         <p:outputLabel value="#{msg['antecedentesPNP.lbl.toxicomanias']}"
                        for="txtToxicomanias"/>
         <p:inputTextarea id="txtToxicomanias"
                          value="#{historiaClinicaMB.paciente.idAntecedentes.toxicomanias}"
                          maxlength="500"
-                         styleClass="textAreaCaptura"/>
+                         styleClass="textAreaCaptura"
+                         disabled="#{historiaClinicaMB.soloLectura}"/>
     </h:panelGrid>
 
 </ui:composition>

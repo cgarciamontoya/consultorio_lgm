@@ -30,7 +30,7 @@
                                             <p:spacer width="3px" height="1px"/>
                                             <h:outputText value="#{busquedasConsultasMB.paciente.apellidoPaterno}"/>
                                             <p:spacer width="3px" height="1px"/>
-                                            <h:outputText value="#{busquedasConsultasMB.paciente.apellidoPaterno}"/>
+                                            <h:outputText value="#{busquedasConsultasMB.paciente.apellidoMaterno}"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -121,9 +121,11 @@
                                 <p:column headerText="#{msg['consultasPrevias.lbl.materno']}">
                                     <h:outputText value="#{consulta.maternoPaciente}"/>
                                 </p:column>
-                                
                                 <p:column headerText="#{msg['consultasPrevias.lbl.diagnostico']}">
                                     <h:outputText value="#{consulta.diagnostico}"/>
+                                </p:column>
+                                <p:column headerText="Atendió">
+                                    <h:outputText value="#{consulta.medico}"/>
                                 </p:column>
                             </p:dataTable>  
                         </div>

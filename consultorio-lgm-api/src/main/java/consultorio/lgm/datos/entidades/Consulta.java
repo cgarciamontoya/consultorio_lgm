@@ -79,6 +79,9 @@ public class Consulta implements Serializable {
     private Double temperatura;
     @Column(name = "circunferencia_abdominal")
     private Integer circunferenciaAbdominal;
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Usuario usuario;
 
     public Consulta() {
     }
@@ -244,6 +247,14 @@ public class Consulta implements Serializable {
 
     public void setCircunferenciaAbdominal(Integer circunferenciaAbdominal) {
         this.circunferenciaAbdominal = circunferenciaAbdominal;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     @Override

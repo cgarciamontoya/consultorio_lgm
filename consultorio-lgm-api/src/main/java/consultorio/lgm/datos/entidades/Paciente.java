@@ -71,7 +71,7 @@ public class Paciente implements Serializable {
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private AntecedentesGenerales idAntecedentes;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     private Usuario usuario;
 
     public Paciente() {

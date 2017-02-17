@@ -221,7 +221,7 @@ public class ConsultasServicioImpl extends ServicioBase
     }
     
     private Map<String, Object> generaParametros(Consulta consulta) {
-        Map<String, Object> parametros = new HashMap<String, Object>();
+        Map<String, Object> parametros = new HashMap<>();
         parametros.put(LGMConstantes.PARAM_RECETA_NOMBRE, consulta.getIdPaciente().getNombre());
         parametros.put(LGMConstantes.PARAM_RECETA_PATERNO, consulta.getIdPaciente().getApellidoPaterno());
         parametros.put(LGMConstantes.PARAM_RECETA_MATERNO, consulta.getIdPaciente().getApellidoMaterno());
@@ -229,6 +229,8 @@ public class ConsultasServicioImpl extends ServicioBase
         parametros.put(LGMConstantes.PARAM_RECETA_DIAGNOSTICO, consulta.getDiagnostico());
         parametros.put(LGMConstantes.PARAM_RECETA_PROXIMA_FECHA, consulta.getProximaCita());
         parametros.put(LGMConstantes.PARAM_RECETA_ID_CONSULTA, consulta.getId());
+        parametros.put("medico", "Dr(a). " + consulta.getUsuario().getNombre() + " " + consulta.getUsuario().getApellidoPaterno() + " " + consulta.getUsuario().getApellidoMaterno());
+        parametros.put("cedula", "Ced. Prof. " + consulta.getUsuario().getCedula());
         return parametros;
     }
 }

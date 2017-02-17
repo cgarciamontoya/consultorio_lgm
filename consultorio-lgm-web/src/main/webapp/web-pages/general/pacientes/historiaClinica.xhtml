@@ -33,6 +33,7 @@
                                                          update="gridDatos mensajes tabHC"
                                                          icon="ui-icon-circle-close" 
                                                          actionListener="#{historiaClinicaMB.limpiar}"
+                                                         disabled="#{historiaClinicaMB.soloLectura}"
                                                          process="@this">
                                             <p:resetInput target="gridDatos" />
                                         </p:commandButton>
@@ -41,6 +42,7 @@
                                                          value="#{msg['boton.etiqueta.guardar']}"
                                                          onclick="confirmationGuardar.show()"
                                                          title="#{msg['boton.etiqueta.guardar']}"
+                                                         disabled="#{historiaClinicaMB.soloLectura}"
                                                          icon="ui-icon-disk" /> 
                                         <p:confirmDialog message="#{msg['historiaClinica.confirmar.guardar']}"
                                                          header="#{msg['historiaClinica.confirmar.guardarTitulo']}"
